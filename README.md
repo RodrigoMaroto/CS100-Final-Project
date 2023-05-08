@@ -22,28 +22,66 @@ Some features that should be implemented in the project are:
 * Checks to see if the chess piece is in the boundaries of the board.
 * Possibility to revert moves
 
- > ## Phase II
- > In addition to completing the "User Interface Specification" and "Class Diagram" sections below, you will need to:
- > * Create an "Epic" (note) for each feature. Place these epics in the `Product Backlog` column
- > * Complete your first *sprint planning* meeting to plan out the next 7 days of work.
- >   * Break down the "Epics" into smaller actionable user stories (i.e. smaller development tasks). Convert them into issues and assign them to team members. Place these in the `TODO` column.
- >   * These cards should represent roughly 7 days worth of development time for your team. Then, once the sprint is over you should be repeating these steps to plan a new sprint, taking you until your second scrum meeting with the reader in phase III.
- > * Schedule two check-ins using Calendly. You need to pick both time slots during your lab on week 6. Your entire team must be present for both check-ins.
- >   * The first check-in needs to be scheduled with your lab TA. During that meeting, you will discuss your project design/class diagram from phase II.
- >   * The second check-in should be scheduled with a reader. During that meeting you will discuss:
- >     * The tasks you are planning for the first sprint
- >     * How work will be divided between the team members
+
 ## User Interface Specification
- > Include a navigation diagram for your screens and the layout of each of those screens as desribed below. For all the layouts/diagrams, you can use any tool such as PowerPoint or a drawing program. (Specification requirement is adapted from [this template](https://redirect.cs.umbc.edu/~mgrass2/cmsc345/Template_UI.doc))
+ 
 
 ### Navigation Diagram
-> Draw a diagram illustrating how the user can navigate from one screen to another. Here is an [example](https://creately.com/diagram/example/ikfqudv82/user-navigation-diagram-classic?r=v). It can be useful to label each symbol that represents a screen so that you can reference the screens in the next section or the rest of the document if necessary. Give a brief description of what the diagram represents.
+![alt text](images/navigation-diagram.png)
+The start menu is the first menu seen and the next menus you can see are indicated by the arrows in the diagram. The text boxes near the lines represent the inputs needed to get to those screens.
 
 ### Screen Layouts
-> Include the layout of each of your screens. The layout should describe the screen’s major components such as menus and prompts for user inputs, expected output, and buttons (if applicable). Explain what is on the layout, and the purpose of each menu item, button, etc. If many screens share the same layout, start by describing the general layout and then list the screens that will be using that layout and the differences between each of them.
+Start Menu:
+```text
+Welcome to Chess!
+
+Would you like to load a previous game or start a new game?
+(Type ‘L’ to load game, ‘N’ for a new game): 
+```
+Load menu:
+```text
+What is the file name your game is stored in?
+Enter file name:  
+```
+This file contains the previous moves played as well as the current state of the board. Once the file is inputted the game starts and takes the inputs from the file until there is none left. Essentially replaying the game until the most recent turn.  
+
+Game Display:   
+    ![alt text](images/chess-board.png)
+```text
+White’s turn (Input the location [column, row] of the piece you want to move, then where you want to put it i.e. C8 D7  )  (If you want to pause the game, input “pause” which sends you to a menu):
+Input move:
+
+*white’s move is computed then displays the current state of the board after the turn*
+
+Black’s turn (name the location  [column, row] of the piece you want to move, then where you want to put it) (If you want to pause the game, input “pause” which sends you to a menu):
+Input move: 
+```
+(Note: If move was invalid)
+```text
+Move was invalid, input new move:  
+```
+Pause menu
+```text
+input: “surrender” to forfeit and end the game, “back” to go back to the game, or “save” to save the current state of the match along with the previous moves played:
+
+
+(if inputs “save”)
+Please input the name of the file to save the data in: 
+```
+End-game menu
+```text
+White/Black Wins!  
+```
+
 
 ## Class Diagram
- > Include a **class diagram(s)** for your project and a **description** of the diagram(s). Your class diagram(s) should include all the main classes you plan for the project. This should be in sufficient detail that another group could pick up the project this point and successfully complete it. Use proper UML notation (as discussed in the course slides).
+ ![alt text](images/class-diagram.png)
+ The piece class is going to be used as an abstract class, with each type of piece inheriting from the piece class. Each type of piece will inherit a color and position, and override the move() and validDestinations() functions according to the piece to be moved. The pawn, rook, and king will have a ‘hasMoved’ boolean variable which will be checked when attempting to castle or move two spaces as a pawn. The color of each piece will be either black or white. The validDestinations() function for a specific piece stores a vector of integers which represents destinations that that piece could move to in one move. 
+
+The Game_Manager class is used to store the previous moves and the board. It is also used to perform functions for certain cases such as check, stalemate, and checkmate. This class also is used for pawn promotions, and saving or loading previous games. It is associated with the Chess_Board class because it cannot do any of its functions without a chess board, and the chess board is useless without the game manager. 
+
+The Chess_Board class serves as the storage area for the chess pieces and represents all the spaces in a chess board. It is composed of an array of Piece pointers (array size of 64 to represent every space on a normal chess board). Each slot will either be null (empty space) or have a piece pointer towards a specific chess piece (Rook, Knight, etc…). It also displays the current state of the board with the display function.
+
  
  > ## Phase III
  > You will need to schedule a check-in for the second scrum meeting with the same reader you had your first scrum meeting with (using Calendly). Your entire team must be present. This meeting will occur on week 8 during lab time.
