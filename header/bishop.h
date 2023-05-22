@@ -8,8 +8,10 @@ class Bishop : public Piece
     private:
 
     public:
-        void move(vector<int> destination) override;
-        vector<vector<int>> validDestinations() override;
+        Bishop();
+        void move(vector<int> destination) ;
+        vector<vector<int>> validDestinations() ;
+        char getDisplayChar();
 };
 
 #endif
