@@ -10,6 +10,7 @@ class Rook : public Piece
     public:
         void move(vector<int> destination) override;
         vector<vector<int>> validDestinations() override;
+        char getDisplayChar() override;
 };
 
 #endif

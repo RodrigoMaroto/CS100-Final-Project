@@ -13,6 +13,7 @@ class Piece
     public:
         virtual void move() = 0;
         virtual vector<vector<int>> validDestinations() = 0;
+        virtual char getDisplayChar();
 };
 
 #endif

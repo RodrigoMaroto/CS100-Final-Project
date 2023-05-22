@@ -40,3 +40,15 @@ vector<vector<int>> Rook::validDestinations()
     } 
     return allMoves;
 }
+
+char Rook::getDisplayChar()
+{
+    if(this->color == 'w')
+    {
+        return '♜';
+    }  
+    else if(this->color == 'b')
+    {
+        return '♖';
+    }
+}
