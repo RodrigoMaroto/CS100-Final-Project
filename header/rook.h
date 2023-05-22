@@ -6,7 +6,7 @@
 class Rook : public Piece
 {
     private:
-
+        bool hasMoved();
     public:
         void move(vector<int> destination) override;
         vector<vector<int>> validDestinations() override;
