@@ -1,3 +1,4 @@
+#include "rook.h"
 
 void Rook::move(vector<int> destination) 
 {
