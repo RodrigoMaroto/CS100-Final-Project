@@ -60,5 +60,6 @@ vector<vector<int>> validDestinations() override{
               column = position.at(1);
         }
     }
-    
+
+   return allMoves; 
 }
