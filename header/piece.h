@@ -7,12 +7,14 @@ using namespace std;
 class Piece
 {
     private:
-        char color;
-        vector<int> position;
+        
 
     public:
+        char color;
+        vector<int> position;
         virtual void move() = 0;
         virtual vector<vector<int>> validDestinations() = 0;
+        virtual char getDisplayChar() = 0;
 };
 
 #endif
