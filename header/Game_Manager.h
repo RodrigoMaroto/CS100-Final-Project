@@ -1,3 +1,6 @@
+#ifndef GAME_MANAGER_H
+#define GAME_MANAGER_H
+
 #include "piece.h"
 #include "knight.h"
 #include "rook.h"
@@ -17,7 +20,9 @@ class Game_Manager
     public:
         bool inCheckMate();
         bool isStalemate();
-        Piece Promote(vector<int> position, char piece)
+        Piece Promote(vector<int> position, char piece);
         vector<string> playedMoves;
         Chess_Board chessboard;
 };
+
+#endif
