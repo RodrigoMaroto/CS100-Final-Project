@@ -15,6 +15,8 @@ using namespace std;
 
 vector<vector<int>> King::validDestinations() override{
     vector<int> pos;
+    pos.push_back(0);
+    pos.push_back(0);
     int row = position.at(0);
     int column = position.at(1);
     vector<vector<int>> allMoves;
@@ -34,17 +36,20 @@ vector<vector<int>> King::validDestinations() override{
                     allMoves.push_back(pos);
                     //at some point, update the lines above to check the board to see of other piece is there
                     //or if move puts in check, etc
+                    
                 }
+                row = position.at(0);
+                column = position.at(1);
             }
             // at the end of each loop iteration reset the row and column to the current position
-            int row = position.at(0);
-            int column = position.at(1);
+            
         }
 
 
         
     }
     
+
 
 return allMoves;
 
