@@ -8,8 +8,8 @@ class Rook : public Piece
     bool hasMoved;
 
     public:
-        void move(vector<int> destination) override;
-        vector<vector<int>> validDestinations() override;
+        void move(vector<int> destination);
+        vector<vector<int>> validDestinations();
 };
 
 #endif

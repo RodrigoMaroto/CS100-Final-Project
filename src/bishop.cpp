@@ -1,9 +1,10 @@
 #include "../header/bishop.h"
 using namespace std;
 
-Bishop::Bishop()
+Bishop::Bishop(char col, vector<int> pos)
 {
-
+    this->color = col;
+    this->position = pos;
 }
 void Bishop::move(vector<int> destination)
 {

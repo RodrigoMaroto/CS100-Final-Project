@@ -7,7 +7,7 @@ int main()
     vector<int> pos;
     pos.push_back(3);
     pos.push_back(4);
-    Bishop myBishop;
+    Bishop myBishop('w',pos);
     myBishop.position = pos;
     vector<vector<int>> allMoves = validDestinations(pos);
     for(int i = 0; i < allMoves.size(); i++)
