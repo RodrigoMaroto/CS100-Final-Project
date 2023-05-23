@@ -11,7 +11,7 @@ class Piece
         vector<int> position;
 
     public:
-        virtual void move() = 0;
+        virtual void move(vector<int> destination) = 0;
         virtual vector<vector<int>> validDestinations() = 0;
         virtual char getDisplayChar() = 0;
 };
