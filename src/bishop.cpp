@@ -8,7 +8,7 @@ Bishop::Bishop(char col, vector<int> pos)
 }
 void Bishop::move(vector<int> destination)
 {
-   
+    
 }
 vector<vector<int>> Bishop::validDestinations()
 {
@@ -22,7 +22,7 @@ vector<vector<int>> Bishop::validDestinations()
     {
         if(i != 0)// cant move to current position
         {
-        // for diagonals - use similar alg for bishop
+            // for diagonals
             row = row + i;
             column = column + i;
             if((row >=0 && row <= 7)&&(column >=0 && column <=7))// checks if location is on the board
