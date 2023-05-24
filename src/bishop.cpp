@@ -24,36 +24,40 @@ vector<vector<int>> Bishop::validDestinations()
         {
         // for diagonals - use similar alg for bishop
             row = row + i;
-            column = column +i;
+            column = column + i;
             if((row >=0 && row <= 7)&&(column >=0 && column <=7))// checks if location is on the board
             {
                 pos.at(0) = row;
                 pos.at(1) = column;
                 allMoves.push_back(pos);// add move to list
             }
-            //resets the position to check for rook type move
             row = position.at(0);
             column = position.at(1);
             //top left to bottom right alg for bishop move
-            row = row -i;
-            column = column +i;
+            row = row - i;
+            column = column + i;
             if((row >=0 && row <= 7)&&(column >=0 && column <=7))// checks if location is on the board
             {
                 pos.at(0) = row;
                 pos.at(1) = column;
                 allMoves.push_back(pos);// add move to list
             }
+            row = position.at(0);
+            column = position.at(1);
         }
     }
+    return allMoves;
 }
-char Bishop::getDisplayChar()
+string Bishop::getDisplayChar()
 {
+    string displayChar = "no char";
     if(this->color == 'w')
     {
-        return '♝';
+        displayChar = "♝";
     }
     else if(this->color == 'b')
     {
-        return '♗';
+        displayChar = "♗";
     }
+    return displayChar;
 }
