@@ -7,6 +7,7 @@
 #include "../header/king.h"
 #include "../header/bishop.h"
 #include <iostream>
+#include <string>
 using namespace std;
 
 
