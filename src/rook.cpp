@@ -1,5 +1,11 @@
-#include "rook.h"
+#include "../header/rook.h"
 
+Rook::Rook(char col, vector<int> pos)
+{
+    this->color = col;
+    this->position = pos;
+    this->hasMoved = false;
+}
 void Rook::move(vector<int> destination) 
 {
 
@@ -18,7 +24,7 @@ vector<vector<int>> Rook::validDestinations()
         if(i != 0)//cant move to same spot
         {
             row = row + i;
-            if((row >= 0 && row <= 7)&&(colomn >=0 && column <=7))// checks if location is on the board
+            if((row >= 0 && row <= 7)&&(column >=0 && column <=7))// checks if location is on the board
             {
                 pos.at(0) = row;
                 pos.at(1) = column;
@@ -31,24 +37,28 @@ vector<vector<int>> Rook::validDestinations()
             //for rook move - column
             column = column + i;
 
-            if((row >= 0 && row <= 7)&&(colomn >= 0 && column <= 7)){// checks if location is on the board
+            if((row >= 0 && row <= 7)&&(column >= 0 && column <= 7)){// checks if location is on the board
                 pos.at(0) = row;
                 pos.at(1) = column;
                 allMoves.push_back(pos);// add move to list
             }
+            row = position.at(i);
+            column = position.at(i);
         }
     } 
     return allMoves;
 }
 
-char Rook::getDisplayChar()
+string Rook::getDisplayChar()
 {
+    string displayChar = "no char";
     if(this->color == 'w')
     {
-        return '♜';
+        displayChar = "♜";
     }  
     else if(this->color == 'b')
     {
-        return '♖';
+        displayChar = "♖";
     }
+    return displayChar;
 }
