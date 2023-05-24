@@ -18,19 +18,18 @@ vector<vector<int>> Rook::validDestinations()
     int row = position.at(0);
     int column = position.at(1);
     vector<vector<int>> allMoves;
-    
     for(int i = -7; i <= 7; i++)
     {
         if(i != 0)//cant move to same spot
         {
+            //pos = {row, column};
             row = row + i;
-            if((row >= 0 && row <= 7)&&(column >=0 && column <=7))// checks if location is on the board
+            if((row >= 0 && row <= 7)&&(column >= 0 && column <= 7))// checks if location is on the board
             {
                 pos.at(0) = row;
                 pos.at(1) = column;
                 allMoves.push_back(pos);// add move to list
             }
-
             //reset position for column check
             row = position.at(0);
             column = position.at(1);
