@@ -22,7 +22,7 @@ vector<vector<int>> Rook::validDestinations()
     {
         if(i != 0)//cant move to same spot
         {
-            //pos = {row, column};
+            pos = {row, column};
             row = row + i;
             if((row >= 0 && row <= 7)&&(column >= 0 && column <= 7))// checks if location is on the board
             {
@@ -41,8 +41,8 @@ vector<vector<int>> Rook::validDestinations()
                 pos.at(1) = column;
                 allMoves.push_back(pos);// add move to list
             }
-            row = position.at(i);
-            column = position.at(i);
+            row = position.at(0);
+            column = position.at(1);
         }
     } 
     return allMoves;

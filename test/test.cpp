@@ -7,8 +7,8 @@ using namespace std;
 int main()//outputs validDestinations for rook
 {
     vector<int> pos;
-    pos.push_back(3);
-    pos.push_back(4);
+    pos.push_back(0);
+    pos.push_back(1);
     Rook myRook('w',pos);
     myRook.position = pos;
     vector<vector<int>> allMoves = myRook.validDestinations();
