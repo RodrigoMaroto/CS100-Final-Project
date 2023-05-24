@@ -8,13 +8,23 @@
 //     public:
 //         void move(vector<int> destination) override;
 //         vector<vector<int>> validDestinations() override;
-// };
-
-
-void move(vector<int> destination) override{
+// };oijooko
+Queen::Queen(char c, vector<vector<int>> loc){
+    color = c;
+    position = loc;
+}
+char Queen::getDisplayChar(){
+    if(color = 'w'){
+        return '♛';
+    }
+    else{
+        return '♕';
+    }
+}
+void Queen::move(vector<int> destination){
 
 }
-vector<vector<int>> validDestinations() override{
+vector<vector<int>> Queen::validDestinations(){
     vector<int> pos;
     pos.push_back(0);
     pos.push_back(0);
