@@ -19,6 +19,15 @@ Chess_Board::Chess_Board() {
     }
 }
 
+Chess_Board::~Chess_Board() {
+    // Deallocate the dynamically allocated Piece objects
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            delete board[i][j];
+        }
+    }
+}
+
 void Chess_Board::display(){
     for (int i = 7; i >= 0; i--) {
         cout<< i+1 << ' ';
