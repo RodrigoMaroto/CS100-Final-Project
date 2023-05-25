@@ -37,3 +37,46 @@ void Chess_Board::addPiece(vector<int> position, char piece, char color) {
         board[row][column] = new Rook(color, position);
 }
 
+void Chess_Board::initBoard(){
+    vector<int> pos;
+    pos.push_back(0);
+    pos.push_back(0);
+    for (int i = 0; i < 8; i++){
+        pos.at(1) = i;
+        pos.at(0) = 1;
+        addPiece(pos, 'p', 'w');
+        pos.at(0) = 6;
+        addPiece(pos, 'p', 'b');
+        if (i == 0 || i == 7){
+            pos.at(0) = 0;
+            addPiece(pos, 'r', 'w');
+            pos.at(0) = 7;
+            addPiece(pos, 'r', 'b');
+        }
+        else if (i == 1 || i == 6){
+            pos.at(0) = 0;
+            addPiece(pos, 'n', 'w');
+            pos.at(0) = 7;
+            addPiece(pos, 'n', 'b');
+        }
+        else if (i == 2 || i == 5){
+            pos.at(0) = 0;
+            addPiece(pos, 'b', 'w');
+            pos.at(0) = 7;
+            addPiece(pos, 'b', 'b');
+        }
+        else if (i == 3){
+            pos.at(0) = 0;
+            addPiece(pos, 'q', 'w');
+            pos.at(0) = 7;
+            addPiece(pos, 'q', 'b');
+        }
+        else if (i == 4){
+            pos.at(0) = 0;
+            addPiece(pos, 'k', 'w');
+            pos.at(0) = 7;
+            addPiece(pos, 'k', 'b');
+        }
+    }
+}
+
