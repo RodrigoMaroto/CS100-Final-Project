@@ -1,8 +1,9 @@
 
-#include "../header/rook.h"
+#include "../header/rook.h
 #include <iostream>
 
 using namespace std;
+
 
 int main()//outputs validDestinations for bishop
 {
@@ -12,6 +13,7 @@ int main()//outputs validDestinations for bishop
     Bishop myBishop('w',pos);
     myBishop.position = pos;
     vector<vector<int>> allMoves = myBishop.validDestinations();
+  
     for(int i = 0; i < allMoves.size(); i++)
     {
         for(int j = 0; j < 2; j++)
