@@ -7,9 +7,6 @@ using namespace std;
 
 class Piece
 {
-    private:
-        
-
     public:
         char color;
         vector<int> position;
