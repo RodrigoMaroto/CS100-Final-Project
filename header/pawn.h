@@ -6,10 +6,13 @@
 class Pawn : public Piece
 {
     private:
-        bool hasMoved();
+        
     public:
-        void move(vector<int> destination) override;
-        vector<vector<int>> validDestinations() override;
+        bool hasMoved;
+        Pawn(char col, vector<int> pos);
+        char getDisplayChar();
+        void move(vector<int> destination);
+        vector<vector<int>> validDestinations();
 };
 
 #endif

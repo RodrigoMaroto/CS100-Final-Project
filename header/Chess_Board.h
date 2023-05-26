@@ -16,6 +16,8 @@ class Chess_Board
     private:
 
     public:
+        Chess_Board();
+        ~Chess_Board();
         void display();
         Piece* board[8][8];
         void addPiece(vector<int> position, char piece, char color);
