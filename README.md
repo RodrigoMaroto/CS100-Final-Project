@@ -80,28 +80,9 @@ White/Black Wins!
 
 The Game_Manager class is used to store the previous moves and the board. It is also used to perform functions for certain cases such as check, stalemate, and checkmate. This class also is used for pawn promotions, and saving or loading previous games. It is associated with the Chess_Board class because it cannot do any of its functions without a chess board, and the chess board is useless without the game manager. 
 
-The Chess_Board class serves as the storage area for the chess pieces and represents all the spaces in a chess board. It is composed of an array of Piece pointers (array size of 64 to represent every space on a normal chess board). Each slot will either be null (empty space) or have a piece pointer towards a specific chess piece (Rook, Knight, etc…). It also displays the current state of the board with the display function.
+The responsibility of the Game Manager was too large as it was handling both game management and file management, which violated the single responsibility principle. To fix this, we separated the Game Manager class into Game Manager and File Manager classes. This will help us to write better, more readable/manageable code since the separation reduces the complexity of Game Manager without changing the overall functionality.
 
- 
- > ## Phase III
- > You will need to schedule a check-in for the second scrum meeting with the same reader you had your first scrum meeting with (using Calendly). Your entire team must be present. This meeting will occur on week 8 during lab time.
- 
- > BEFORE the meeting you should do the following:
- > * Update your class diagram from Phase II to include any feedback you received from your TA/grader.
- > * Considering the SOLID design principles, reflect back on your class diagram and think about how you can use the SOLID principles to improve your design. You should then update the README.md file by adding the following:
- >   * A new class diagram incorporating your changes after considering the SOLID principles.
- >   * For each update in your class diagram, you must explain in 3-4 sentences:
- >     * What SOLID principle(s) did you apply?
- >     * How did you apply it? i.e. describe the change.
- >     * How did this change help you write better code?
- > * Perform a new sprint plan like you did in Phase II.
- > * You should also make sure that your README file (and Project board) are up-to-date reflecting the current status of your project and the most recent class diagram. Previous versions of the README file should still be visible through your commit history.
- 
-> During the meeting with your reader you will discuss: 
- > * How effective your last sprint was (each member should talk about what they did)
- > * Any tasks that did not get completed last sprint, and how you took them into consideration for this sprint
- > * Any bugs you've identified and created issues for during the sprint. Do you plan on fixing them in the next sprint or are they lower priority?
- > * What tasks you are planning for this next sprint.
+The move function was initially being implemented for each piece, but the function was similar for all pieces (adjusting pointers on board to reflect new locations). This is a violation of the open-closed principle because the move function should be closed for modification once it is written. In order to fix this, the game manager class is now responsible for the move function, and it is only implemented once. This change allows for more readable code and reduces the amount of duplicated code.
 
  
  > ## Final deliverable
