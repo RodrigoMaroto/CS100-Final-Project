@@ -56,17 +56,17 @@ return allMoves;
 }
 
 void King::move(vector<int> destination) override{
-    //main will check if move is in the valid destination BEFORE this is called!!
+    // //main will check if move is in the valid destination BEFORE this is called!!
 
-    // new board position -> at king
-    board[destination.at(0)][destination.at(1)] -> this King;//idt this is correct... update if wrong
+    // // new board position -> at king
+    // board[destination.at(0)][destination.at(1)] -> this King;//idt this is correct... update if wrong
 
-    // old board position -> null
-    board[position.at(0)][position.at(1)] -> null;
+    // // old board position -> null
+    // board[position.at(0)][position.at(1)] -> null;
 
-    //update position data to match new position
-    position.at(0) = destination.at(0);
-    position.at(1) = destination.at(1)
-    hasMoved = true;
+    // //update position data to match new position
+    // position.at(0) = destination.at(0);
+    // position.at(1) = destination.at(1)
+    // hasMoved = true;
 
 }
