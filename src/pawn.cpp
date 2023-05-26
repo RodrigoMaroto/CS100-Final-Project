@@ -4,16 +4,22 @@ Pawn::Pawn(char col, vector<int> pos)
 {
     color = col;
     position = pos;
+    hasMoved = false;
 }
 
 char Pawn::getDisplayChar()
 {
+    string displayChar = "no char";
     if (color = 'b')
     {
-        return '♙';
+        displayChar = '♙';
     } 
+    else
+    {
+        displayChar = '♟︎';
+    }
 
-        return '♟︎';
+    return displayChar;
 }
 
 void Knight::move(vector<int> destination)
