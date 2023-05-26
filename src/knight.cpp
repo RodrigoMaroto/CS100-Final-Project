@@ -6,16 +6,16 @@ Knight::Knight(char col, vector<int> pos)
     position = pos;
 }
 
-char Knight::getDisplayChar()
+string Knight::getDisplayChar()
 {
     string displayChar = "no char";
-    if (color = 'b')
+    if (color == 'b')
     {
-        displayChar = '♘';
+        displayChar = "♘";
     } 
     else
     {
-        displayChar = '♞';
+        displayChar = "♞";
     }
 
     return displayChar;
@@ -126,5 +126,5 @@ vector<vector<int>> Knight::validDestinations()
         validDestinations.erase(validDestinations.begin() + counter);
     }
 
-    return vector<vector<int>> validDestinations;
+    return validDestinations;
 }

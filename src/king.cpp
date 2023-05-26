@@ -1,4 +1,4 @@
-#include "header/king.h"
+#include "../header/king.h"
 #include <vector>
 using namespace std;
 
@@ -12,12 +12,12 @@ using namespace std;
 //         vector<vector<int>> validDestinations() override;
 // };
 
-king::king(char c, vector<vector<int>> pos){
-    this->color = c;
+King::King(char col, vector<int> pos){
+    this->color = col;
     this->position = pos;
     this->hasMoved = false;
 }
-string king::getDisplayChar(){
+string King::getDisplayChar(){
     string displayChar = "no char";
     if(this->color == 'w')
     {
@@ -29,7 +29,7 @@ string king::getDisplayChar(){
     }
     return displayChar;
 }
-vector<vector<int>> King::validDestinations() override{
+vector<vector<int>> King::validDestinations() {
     vector<int> pos;
     pos.push_back(0);
     pos.push_back(0);
@@ -71,7 +71,7 @@ return allMoves;
 
 }
 
-void King::move(vector<int> destination) override{
+void King::move(vector<int> destination) {
     // //main will check if move is in the valid destination BEFORE this is called!!
 
     // // new board position -> at king

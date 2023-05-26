@@ -1,5 +1,5 @@
-#include "header/queen.h"
-#include<vector>
+#include "../header/queen.h"
+#include <vector>
 
 // class Queen : public Piece
 // {
@@ -9,12 +9,11 @@
 //         void move(vector<int> destination) override;
 //         vector<vector<int>> validDestinations() override;
 // };oijooko
-Queen::Queen(char col, vector<vector<int>> pos){
+Queen::Queen(char col, vector<int> pos){
     this->color = col;
     this->position = pos;
-    this->hasMoved = false;
 }
-char Queen::getDisplayChar(){
+string Queen::getDisplayChar(){
     string displayChar = "no char";
     if(this->color == 'w')
     {

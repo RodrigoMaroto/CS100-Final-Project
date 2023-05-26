@@ -9,7 +9,7 @@ class Knight : public Piece
 
     public:
         Knight(char col, vector<int> pos);
-        char getDisplayChar();
+        string getDisplayChar();
         void move(vector<int> destination);
         vector<vector<int>> validDestinations();
 };

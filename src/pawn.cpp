@@ -7,22 +7,22 @@ Pawn::Pawn(char col, vector<int> pos)
     hasMoved = false;
 }
 
-char Pawn::getDisplayChar()
+string Pawn::getDisplayChar()
 {
     string displayChar = "no char";
-    if (color = 'b')
+    if (color == 'b')
     {
-        displayChar = '♙';
+        displayChar = "♙";
     } 
     else
     {
-        displayChar = '♟︎';
+        displayChar = "♟︎";
     }
 
     return displayChar;
 }
 
-void Knight::move(vector<int> destination)
+void Pawn::move(vector<int> destination)
 {
     // int currRow = position.at(0);
     // int currCol = position.at(1);
@@ -114,5 +114,5 @@ vector<vector<int>> Pawn::validDestinations()
         validDestinations.erase(validDestinations.begin() + counter);
     }
 
-    return vector<vector<int>> validDestinations;
+    return validDestinations;
 }
