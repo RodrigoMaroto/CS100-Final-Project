@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 int main()//outputs validDestinations for bishop
 {
     vector<int> pos;

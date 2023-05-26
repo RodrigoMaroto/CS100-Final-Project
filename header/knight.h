@@ -8,8 +8,10 @@ class Knight : public Piece
     private:
 
     public:
-        void move(vector<int> destination) override;
-        vector<vector<int>> validDestinations() override;
+        Knight(char col, vector<int> pos);
+        char getDisplayChar();
+        void move(vector<int> destination);
+        vector<vector<int>> validDestinations();
 };
 
 #endif
