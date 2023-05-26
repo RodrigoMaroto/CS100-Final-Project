@@ -25,10 +25,8 @@ string Queen::getDisplayChar(){
     }
     return displayChar;
 }
-void Queen::move(vector<int> destination){
 
-}
-vector<vector<int>> Queen::validDestinations(){
+vector<vector<int>> Queen::validDestinations(Piece* board[8][8]){
     vector<int> pos;
     pos.push_back(0);
     pos.push_back(0);

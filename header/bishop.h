@@ -9,8 +9,7 @@ class Bishop : public Piece
 
     public:
         Bishop(char col, vector<int> pos);
-        void move(vector<int> destination) override;
-        vector<vector<int>> validDestinations() override;
+        vector<vector<int>> validDestinations(Piece* board[8][8]) override;
         string getDisplayChar() override;
 };
 

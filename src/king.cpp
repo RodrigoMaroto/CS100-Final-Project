@@ -29,7 +29,7 @@ string King::getDisplayChar(){
     }
     return displayChar;
 }
-vector<vector<int>> King::validDestinations() {
+vector<vector<int>> King::validDestinations(Piece* board[8][8]) {
     vector<int> pos;
     pos.push_back(0);
     pos.push_back(0);
@@ -71,18 +71,3 @@ return allMoves;
 
 }
 
-void King::move(vector<int> destination) {
-    // //main will check if move is in the valid destination BEFORE this is called!!
-
-    // // new board position -> at king
-    // board[destination.at(0)][destination.at(1)] -> this King;//idt this is correct... update if wrong
-
-    // // old board position -> null
-    // board[position.at(0)][position.at(1)] -> null;
-
-    // //update position data to match new position
-    // position.at(0) = destination.at(0);
-    // position.at(1) = destination.at(1)
-    // hasMoved = true;
-
-}

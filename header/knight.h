@@ -10,8 +10,7 @@ class Knight : public Piece
     public:
         Knight(char col, vector<int> pos);
         string getDisplayChar();
-        void move(vector<int> destination);
-        vector<vector<int>> validDestinations();
+        vector<vector<int>> validDestinations(Piece* board[8][8]);
 };
 
 #endif

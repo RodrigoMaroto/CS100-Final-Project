@@ -110,9 +110,3 @@ void Chess_Board::display(){
     }
     cout << "  a b c d e f g h"<<endl;
 }
-
-int main(){
-    Chess_Board board = Chess_Board();
-    board.initBoard();
-    board.display();
-}

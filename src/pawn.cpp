@@ -22,25 +22,8 @@ string Pawn::getDisplayChar()
     return displayChar;
 }
 
-void Pawn::move(vector<int> destination)
-{
-    // int currRow = position.at(0);
-    // int currCol = position.at(1);
-    // int rowDest = destination.at(0);
-    // int colDest = destination.at(1);
 
-    // vector<vector<int>> validDestination = validDestinations();
-
-    // for(unsigned int counter = 0; counter < validDestination.size(); ++counter)
-    // {
-    //     if (validDestination.at(counter) == destination)
-    //     {
-            
-    //     }
-    // }
-}
-
-vector<vector<int>> Pawn::validDestinations()
+vector<vector<int>> Pawn::validDestinations(Piece* board[8][8])
 {
     int currRow = position.at(0);
     int currCol = position.at(1);

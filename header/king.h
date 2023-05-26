@@ -6,11 +6,9 @@
 class King : public Piece
 {
     public:
-        bool hasMoved;
         King(char col, vector<int> pos);
         string getDisplayChar();
-        void move(vector<int> destination) override;
-        vector<vector<int>> validDestinations() override;
+        vector<vector<int>> validDestinations(Piece* board[8][8]) override;
 };
 
 #endif

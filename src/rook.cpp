@@ -6,11 +6,8 @@ Rook::Rook(char col, vector<int> pos)
     this->position = pos;
     this->hasMoved = false;
 }
-void Rook::move(vector<int> destination) 
-{
 
-}
-vector<vector<int>> Rook::validDestinations()
+vector<vector<int>> Rook::validDestinations(Piece* board[8][8])
 {
     //iterate in front and behind current position, 
     //if an enemy piece is on it you can still move there, but no further
