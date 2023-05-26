@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
 using namespace std;
 
 
@@ -78,5 +79,35 @@ void Chess_Board::initBoard(){
             addPiece(pos, 'k', 'b');
         }
     }
+}
+
+Chess_Board::~Chess_Board() {
+    // Deallocate the dynamically allocated Piece objects
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            delete board[i][j];
+        }
+    }
+}
+
+void Chess_Board::display(){
+    for (int i = 7; i >= 0; i--) {
+        cout<< i+1 << ' ';
+        for (int j = 0; j < 8; j++) {
+            if (board[i][j] != nullptr) {
+                cout<< board[i][j]->getDisplayChar() << ' ';
+            } 
+            else {
+                if (i%2 && !(j%2))
+                    cout << "■ ";
+                else if(j%2 && !(i%2))
+                    cout << "■ ";
+                else
+                    cout << "□ ";
+            }
+        }
+        cout << endl;
+    }
+    cout << "  a b c d e f g h"<<endl;
 }
 
