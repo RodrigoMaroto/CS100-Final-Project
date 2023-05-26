@@ -21,11 +21,11 @@ string king::getDisplayChar(){
     string displayChar = "no char";
     if(this->color == 'w')
     {
-        displayChar = "♛";
+        displayChar = "♚";
     }  
     else if(this->color == 'b')
     {
-        displayChar = "♕";
+        displayChar = "♔";
     }
     return displayChar;
 }
