@@ -12,7 +12,23 @@ using namespace std;
 //         vector<vector<int>> validDestinations() override;
 // };
 
-
+king::king(char c, vector<vector<int>> pos){
+    this->color = c;
+    this->position = pos;
+    this->hasMoved = false;
+}
+string king::getDisplayChar(){
+    string displayChar = "no char";
+    if(this->color == 'w')
+    {
+        displayChar = "♛";
+    }  
+    else if(this->color == 'b')
+    {
+        displayChar = "♕";
+    }
+    return displayChar;
+}
 vector<vector<int>> King::validDestinations() override{
     vector<int> pos;
     pos.push_back(0);
