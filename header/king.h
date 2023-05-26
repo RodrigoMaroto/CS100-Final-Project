@@ -5,11 +5,10 @@
 
 class King : public Piece
 {
-    private:
-        bool hasMoved();
     public:
-        void move(vector<int> destination) override;
-        vector<vector<int>> validDestinations() override;
+        King(char col, vector<int> pos);
+        string getDisplayChar();
+        vector<vector<int>> validDestinations(Piece* board[8][8]) override;
 };
 
 #endif

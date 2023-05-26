@@ -10,9 +10,9 @@ class Piece
     public:
         char color;
         vector<int> position;
+        bool hasMoved;
 
-        virtual void move(vector<int> destination) = 0;
-        virtual vector<vector<int>> validDestinations() = 0;
+        virtual vector<vector<int>> validDestinations(Piece* board[8][8]) = 0;
         virtual string getDisplayChar() = 0;
 };
 

@@ -6,40 +6,23 @@ Knight::Knight(char col, vector<int> pos)
     position = pos;
 }
 
-char Knight::getDisplayChar()
+string Knight::getDisplayChar()
 {
     string displayChar = "no char";
-    if (color = 'b')
+    if (color == 'b')
     {
-        displayChar = '♘';
+        displayChar = "♘";
     } 
     else
     {
-        displayChar = '♞';
+        displayChar = "♞";
     }
 
     return displayChar;
 }
 
-void Knight::move(vector<int> destination)
-{
-    // int currRow = position.at(0);
-    // int currCol = position.at(1);
-    // int rowDest = destination.at(0);
-    // int colDest = destination.at(1);
 
-    // vector<vector<int>> validDestination = validDestinations();
-
-    // for(unsigned int counter = 0; counter < validDestination.size(); ++counter)
-    // {
-    //     if (validDestination.at(counter) == destination)
-    //     {
-            
-    //     }
-    // }
-}
-
-vector<vector<int>> Knight::validDestinations()
+vector<vector<int>> Knight::validDestinations(Piece* board[8][8])
 {
     int currRow = position.at(0);
     int currCol = position.at(1);
@@ -126,5 +109,5 @@ vector<vector<int>> Knight::validDestinations()
         validDestinations.erase(validDestinations.begin() + counter);
     }
 
-    return vector<vector<int>> validDestinations;
+    return validDestinations;
 }

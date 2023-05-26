@@ -8,11 +8,9 @@ class Pawn : public Piece
     private:
         
     public:
-        bool hasMoved;
         Pawn(char col, vector<int> pos);
-        char getDisplayChar();
-        void move(vector<int> destination);
-        vector<vector<int>> validDestinations();
+        string getDisplayChar();
+        vector<vector<int>> validDestinations(Piece* board[8][8]);
 };
 
 #endif

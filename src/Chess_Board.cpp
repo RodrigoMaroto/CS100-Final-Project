@@ -110,4 +110,3 @@ void Chess_Board::display(){
     }
     cout << "  a b c d e f g h"<<endl;
 }
-
