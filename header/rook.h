@@ -5,11 +5,13 @@
 
 class Rook : public Piece
 {
-    private:
-        bool hasMoved();
     public:
+        bool hasMoved;
+        
+        Rook(char col, vector<int> pos);
         void move(vector<int> destination) override;
         vector<vector<int>> validDestinations() override;
+        string getDisplayChar() override;
 };
 
 #endif
