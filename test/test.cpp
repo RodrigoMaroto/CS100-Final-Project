@@ -1,4 +1,5 @@
-#include "../header/bishop.h"
+
+#include "../header/rook.h"
 #include <iostream>
 
 using namespace std;

@@ -6,9 +6,8 @@
 class King : public Piece
 {
     private:
-
-    public:
         bool hasMoved();
+    public:
         void move(vector<int> destination) override;
         vector<vector<int>> validDestinations() override;
 };
