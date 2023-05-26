@@ -6,11 +6,8 @@ Bishop::Bishop(char col, vector<int> pos)
     this->color = col;
     this->position = pos;
 }
-void Bishop::move(vector<int> destination)
-{
-    
-}
-vector<vector<int>> Bishop::validDestinations()
+
+vector<vector<int>> Bishop::validDestinations(Piece* board[8][8])
 {
     vector<int> pos;
     pos.push_back(0);

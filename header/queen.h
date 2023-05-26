@@ -5,11 +5,10 @@
 
 class Queen : public Piece
 {
-    private:
-
     public:
-        void move(vector<int> destination) override;
-        vector<vector<int>> validDestinations() override;
+        Queen(char col, vector<int> pos);
+        string getDisplayChar();
+        vector<vector<int>> validDestinations(Piece* board[8][8]) override;
 };
 
 #endif

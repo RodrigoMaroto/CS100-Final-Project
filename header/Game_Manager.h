@@ -21,6 +21,7 @@ class Game_Manager
         bool inCheckMate();
         bool isStalemate();
         Piece Promote(vector<int> position, char piece);
+        void move(vector<int> destination, vector<int> currentLocation);
         vector<string> playedMoves;
         Chess_Board chessboard;
 };
