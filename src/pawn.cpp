@@ -77,32 +77,29 @@ vector<vector<int>> Pawn::validDestinations()
         validDest.clear();
     }
 
-    else //hasMoved == true
+    if (color == 'w')
     {
-        if (color == 'w')
-        {
-            rowDest = currRow + 1;
-            colDest = 0;
+        rowDest = currRow + 1;
+        colDest = 0;
 
-            validDest.push_back(rowDest);
-            validDest.push_back(colDest);
+        validDest.push_back(rowDest);
+        validDest.push_back(colDest);
 
-            validDestinations.push_back(validDest);
-        }
-
-        else //if color == 'b'
-        {
-            rowDest = currRow - 1;
-            colDest = 0;
-
-            validDest.push_back(rowDest);
-            validDest.push_back(colDest);
-
-            validDestinations.push_back(validDest);
-        }
-
-        validDest.clear();
+        validDestinations.push_back(validDest);
     }
+
+    else //if color == 'b'
+    {
+        rowDest = currRow - 1;
+        colDest = 0;
+
+        validDest.push_back(rowDest);
+        validDest.push_back(colDest);
+
+        validDestinations.push_back(validDest);
+    }
+
+    validDest.clear();
 
     for (unsigned int counter = 0; counter < validDestinations.size(); ++counter)
     {
