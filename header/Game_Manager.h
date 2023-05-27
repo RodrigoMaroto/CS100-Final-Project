@@ -20,8 +20,10 @@ class Game_Manager
     public:
         bool inCheckMate();
         bool isStalemate();
-        Piece Promote(vector<int> position, char piece);
+        void Promote(vector<int> position, char piece);
         void move(vector<int> destination, vector<int> currentLocation);
+        void inputMove();
+        bool isWhiteTurn;
         vector<string> playedMoves;
         Chess_Board chessboard;
 };
