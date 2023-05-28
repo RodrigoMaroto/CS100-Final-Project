@@ -1,7 +1,7 @@
 #ifndef PAWN_H
 #define PAWN_H
 
-#include "piece.h"
+#include "../header/piece.h"
 
 class Pawn : public Piece
 {
