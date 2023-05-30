@@ -6,14 +6,17 @@
 
 using namespace std;
 
-void Game_Manager::move(vector<int> destination, vector<int> currentLocation){
-    Piece* piece = chessboard.board[currentLocation.at(0)][currentLocation.at(1)];
-    if (chessboard.board[destination.at(0)][destination.at(1)] != nullptr)
-        delete chessboard.board[destination.at(0)][destination.at(1)];
-    chessboard.board[destination.at(0)][destination.at(1)] = piece;
-    chessboard.board[currentLocation.at(0)][currentLocation.at(1)] = nullptr;
-    piece->position = destination;
-    piece->hasMoved = true;
+
+bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementation
+    return false;
+}
+
+bool Game_Manager::castle(vector<vector<int>> moves){ //missing implementation
+    return false;
+}
+
+bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementation
+    return false;
 }
 
 bool isValidInput(string input) {
@@ -54,15 +57,20 @@ bool isVectorInVector(vector<int> target, vector<vector<int>> vectorList) {
 }
 
 void Game_Manager::inputMove(){
-    string input;
-    //Check color missing
-    cout << "White’s turn (Input the location [column, row] of the piece you want to move, then where you want to put it i.e. C8 D7)"<<endl;
+    if (isWhiteTurn)
+        cout << "White’s turn ";
+    else
+        cout << "Black’s turn ";
+    cout << "(Input the location [column, row] of the piece you want to move, then where you want to put it i.e. C8 D7)"<<endl;
     cout << "Input move: ";
+
     while(true){
+        string input;
         getline(cin, input);
 
         if (input == "pause") {
             // Handle pause option
+            // Invoke pause menu
             break;
         } 
         if (isValidInput(input)){
@@ -70,8 +78,17 @@ void Game_Manager::inputMove(){
             Piece* piece = chessboard.board[moves[0][0]][moves[0][1]];
             if (piece != nullptr){
                 if ((piece->color == 'w' && isWhiteTurn) || (piece->color == 'b' && !isWhiteTurn)){
+                    if (promote(moves)) //This functions will return true if valid and execute the move
+                        break;
+                    if (castle(moves))
+                        break;
+                    if (enPassant(moves))
+                        break;
                     if(isVectorInVector(moves[1], piece->validDestinations(chessboard.board))){
+                        // Missing discover check
                         move(moves[1], moves[0]);
+                        isWhiteTurn = !isWhiteTurn;
+                        playedMoves.push_back(input);
                         break;
                     }
                 }
@@ -85,13 +102,3 @@ void Game_Manager::inputMove(){
 
 
 
-int main(){
-    Game_Manager game;
-    game.isWhiteTurn = true;
-    Chess_Board board = Chess_Board();
-    game.chessboard = board;
-    game.chessboard.initBoard();
-    game.chessboard.display();
-    game.inputMove();
-    game.chessboard.display();
-}

@@ -20,7 +20,9 @@ class Game_Manager
     public:
         bool inCheckMate();
         bool isStalemate();
-        void Promote(vector<int> position, char piece);
+        bool promote(vector<vector<int>> moves);
+        bool castle(vector<vector<int>> moves);
+        bool enPassant(vector<vector<int>> moves);
         void move(vector<int> destination, vector<int> currentLocation);
         void inputMove();
         bool isWhiteTurn;
