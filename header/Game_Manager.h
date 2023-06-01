@@ -18,6 +18,7 @@ class Game_Manager
     private:
 
     public:
+        Game_Manager();
         bool inCheckMate();
         bool isStalemate();
         bool promote(vector<vector<int>> moves);
@@ -25,7 +26,12 @@ class Game_Manager
         bool enPassant(vector<vector<int>> moves);
         void move(vector<int> destination, vector<int> currentLocation);
         void inputMove();
+        bool tempCheck(vector<int> destination, vector<int> currentLocation);
+        void pauseMenu();
         bool isWhiteTurn;
+        bool isGameFinished;
+        bool isDraw;
+        bool whiteWin;
         vector<string> playedMoves;
         Chess_Board chessboard;
 };

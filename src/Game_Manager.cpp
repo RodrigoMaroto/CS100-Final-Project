@@ -6,6 +6,21 @@
 
 using namespace std;
 
+Game_Manager::Game_Manager(){
+    isWhiteTurn = true;
+    isGameFinished = false;
+    isDraw = false;
+    whiteWin = false;
+    chessboard = Chess_Board();
+}
+
+void Game_Manager::move(vector<int> destination, vector<int> currentLocation){
+    
+}
+
+bool Game_Manager::tempCheck(vector<int> destination, vector<int> currentLocation){
+    return false;
+}
 
 bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementation
     return false;
@@ -85,11 +100,12 @@ void Game_Manager::inputMove(){
                     if (enPassant(moves))
                         break;
                     if(isVectorInVector(moves[1], piece->validDestinations(chessboard.board))){
-                        // Missing discover check
-                        move(moves[1], moves[0]);
-                        isWhiteTurn = !isWhiteTurn;
-                        playedMoves.push_back(input);
-                        break;
+                        if (!tempCheck(moves[1], moves[0])){
+                            move(moves[1], moves[0]);
+                            isWhiteTurn = !isWhiteTurn;
+                            playedMoves.push_back(input);
+                            break;
+                        }
                     }
                 }
             }
