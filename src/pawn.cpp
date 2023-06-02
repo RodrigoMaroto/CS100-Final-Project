@@ -32,69 +32,107 @@ vector<vector<int>> Pawn::validDestinations(Piece* board[8][8])
 
     vector<vector<int>> validDestinations;
 
-    if (this->hasMoved == false)
-    {
-        vector<int> validDest1;
-        validDest1.push_back(0);
-        validDest1.push_back(0);
-
-        if (color == 'w')
-        {
-            rowDest = currRow + 2;
-
-            validDest1.at(0) = rowDest;
-            validDest1.at(1) = currCol;
-
-            validDestinations.push_back(validDest1);
-        }
-
-        else //if color == 'b'
-        {
-            rowDest = currRow - 2;
-
-            validDest1.at(0) = rowDest;
-            validDest1.at(1) = currCol;
-
-            validDestinations.push_back(validDest1);
-        }
-    }
+    vector<int> validDest1;
+    validDest1.push_back(0);
+    validDest1.push_back(0);
 
     vector<int> validDest2;
     validDest2.push_back(0);
     validDest2.push_back(0);
 
-    if (color == 'w')
+    vector<int> validDest3;
+    validDest3.push_back(0);
+    validDest3.push_back(0);
+
+    vector<int> validDest4;
+    validDest4.push_back(0);
+    validDest4.push_back(0);
+
+    if (this->color == 'w')
     {
-        rowDest = currRow + 1;
+        if (board[currRow + 1][currCol] == nullptr)
+        {
+            rowDest = currRow + 1;
 
-        validDest2.at(0) = rowDest;
-        validDest2.at(1) = currCol;
+            validDest2.at(0) = rowDest;
+            validDest2.at(1) = currCol;
 
-        validDestinations.push_back(validDest2);
+            validDestinations.push_back(validDest2);
+
+            if (this->hasMoved == false && board[currRow + 2][currCol] == nullptr)
+            {
+                rowDest = currRow + 2;
+
+                validDest1.at(0) = rowDest;
+                validDest1.at(1) = currCol;
+
+                validDestinations.push_back(validDest1);
+            }
+        }
+
+        if (currCol + 1 < 8 && (board[currRow + 1][currCol + 1] != nullptr && board[currRow + 1][currCol + 1]->color != this->color))
+        {
+            validDest3.at(0) = currRow + 1;
+            validDest3.at(1) = currCol + 1;
+
+            validDestinations.push_back(validDest3);
+        }
+
+        if (currCol - 1 > 0 && (board[currRow + 1][currCol - 1] != nullptr && board[currRow + 1][currCol - 1]->color != this->color))
+        {
+            validDest4.at(0) = currRow + 1;
+            validDest4.at(1) = currCol - 1;
+
+            validDestinations.push_back(validDest4);
+        }
     }
 
     else //if color == 'b'
     {
-        rowDest = currRow - 1;
+        if (board[currRow - 1][currCol] == nullptr)
+        {
+            if (this->hasMoved == false && board[currRow - 2][currCol] == nullptr)
+            {
+                rowDest = currRow - 2;
 
-        validDest2.at(0) = rowDest;
-        validDest2.at(1) = currCol;
+                validDest1.at(0) = rowDest;
+                validDest1.at(1) = currCol;
 
-        validDestinations.push_back(validDest2);
+                validDestinations.push_back(validDest1);
+            }
+
+            rowDest = currRow - 1;
+
+            validDest2.at(0) = rowDest;
+            validDest2.at(1) = currCol;
+
+            validDestinations.push_back(validDest2);
+        }
+
+            if (currCol + 1 < 8 && (board[currRow - 1][currCol + 1] != nullptr && board[currRow - 1][currCol + 1]->color != this->color))
+            {
+                validDest3.at(0) = currRow - 1;
+                validDest3.at(1) = currCol + 1;
+
+                validDestinations.push_back(validDest3);
+            }
+
+            if (currCol - 1 > 0 && (board[currRow - 1][currCol - 1] != nullptr && board[currRow - 1][currCol - 1]->color != this->color))
+            {
+                validDest4.at(0) = currRow - 1;
+                validDest4.at(1) = currCol - 1;
+
+                validDestinations.push_back(validDest4);
+            }
     }
-
-    //ADD VALIDDEST3/4 FOR CAPTURING PIECE IN DIAGNOL
 
     for (unsigned int counter = 0; counter < validDestinations.size(); ++counter)
     {
-        for (unsigned int count = 0; count < 2; ++count)
+        if ((validDestinations[counter][0] > 7 || validDestinations[counter][0] < 0) ||
+            (validDestinations[counter][1] > 7 || validDestinations[counter][1] < 0))
         {
-            if (validDestinations[counter][count] > 7 || validDestinations[counter][count] < 0)
-            {
-                validDestinations.erase(validDestinations.begin() + counter);
-                --counter;
-                break;
-            }
+            validDestinations.erase(validDestinations.begin() + counter);
+            --counter;
         }
     }
 
