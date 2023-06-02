@@ -35,6 +35,19 @@ bool Game_Manager::isStalemate(){
 }
 
 bool Game_Manager::tempCheck(vector<int> destination, vector<int> currentLocation){
+    //Modify board
+    Piece* dest = chessboard.board[destination[0]][destination[1]];
+    Piece* piece = chessboard.board[currentLocation[0]][currentLocation[1]];
+    chessboard.board[currentLocation[0]][currentLocation[1]] = nullptr;
+    chessboard.board[destination[0]][destination[1]] = piece;
+
+    //Call check
+    
+
+    //Restore board
+    chessboard.board[currentLocation[0]][currentLocation[1]] = piece;
+    chessboard.board[destination[0]][destination[1]] = dest;
+
     return false;
 }
 
