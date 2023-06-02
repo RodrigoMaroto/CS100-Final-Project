@@ -15,8 +15,15 @@ Game_Manager::Game_Manager(){
 }
 
 void Game_Manager::move(vector<int> destination, vector<int> currentLocation){
-    
+    Piece* piece = chessboard.board[currentLocation.at(0)][currentLocation.at(1)];
+    if (chessboard.board[destination.at(0)][destination.at(1)] != nullptr)
+        delete chessboard.board[destination.at(0)][destination.at(1)];
+    chessboard.board[destination.at(0)][destination.at(1)] = piece;
+    chessboard.board[currentLocation.at(0)][currentLocation.at(1)] = nullptr;
+    piece->position = destination;
+    piece->hasMoved = true;
 }
+
 //This will be checked at the end of the turn, so it must be checked for the opposite color
 //Or pass it as a parameter
 bool Game_Manager::isCheckMate(){ 
@@ -122,7 +129,6 @@ void Game_Manager::inputMove(){
         cout << "Move was invalid, input new move: ";            
     }
 }
-
 
 
 

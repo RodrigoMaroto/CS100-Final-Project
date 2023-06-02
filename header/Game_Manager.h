@@ -28,6 +28,7 @@ class Game_Manager
         void inputMove();
         bool tempCheck(vector<int> destination, vector<int> currentLocation);
         void pauseMenu();
+  
         bool isWhiteTurn;
         bool isGameFinished;
         bool isDraw;
