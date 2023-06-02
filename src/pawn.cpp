@@ -32,58 +32,98 @@ vector<vector<int>> Pawn::validDestinations(Piece* board[8][8])
 
     vector<vector<int>> validDestinations;
 
-    if (this->hasMoved == false)
-    {
-        vector<int> validDest1;
-        validDest1.push_back(0);
-        validDest1.push_back(0);
-
-        if (color == 'w')
-        {
-            rowDest = currRow + 2;
-
-            validDest1.at(0) = rowDest;
-            validDest1.at(1) = currCol;
-
-            validDestinations.push_back(validDest1);
-        }
-
-        else //if color == 'b'
-        {
-            rowDest = currRow - 2;
-
-            validDest1.at(0) = rowDest;
-            validDest1.at(1) = currCol;
-
-            validDestinations.push_back(validDest1);
-        }
-    }
+    
+    vector<int> validDest1;
+    validDest1.push_back(0);
+    validDest1.push_back(0);
 
     vector<int> validDest2;
     validDest2.push_back(0);
     validDest2.push_back(0);
 
-    if (color == 'w')
+    if (this->color == 'w')
     {
-        rowDest = currRow + 1;
+        if (board[currRow + 1][currCol] == nullptr)
+        {
+            if (this->hasMoved == false)
+            {
+                rowDest = currRow + 2;
 
-        validDest2.at(0) = rowDest;
-        validDest2.at(1) = currCol;
+                validDest1.at(0) = rowDest;
+                validDest1.at(1) = currCol;
 
-        validDestinations.push_back(validDest2);
+                validDestinations.push_back(validDest1);
+            }
+
+            rowDest = currRow + 1;
+
+            validDest2.at(0) = rowDest;
+            validDest2.at(1) = currCol;
+
+            validDestinations.push_back(validDest2);
+        }
+
+        else if (board[currRow + 1][currCol] != nullptr && board[currRow + 1][currCol]->color != this->color)
+        {
+            if (board[currRow + 1][currCol + 1] != nullptr && board[currRow + 1][currCol + 1]->color != this->color)
+            {
+                validDest1.at(0) = currRow + 1;
+                validDest1.at(1) = currCol + 1;
+
+                validDestinations.push_back(validDest1);
+            }
+
+            else if (board[currRow + 1][currCol - 1] != nullptr && board[currRow + 1][currCol - 1]->color != this->color)
+            {
+                validDest2.at(0) = currRow + 1;
+                validDest2.at(1) = currCol - 1;
+
+                validDestinations.push_back(validDest2);
+            }
+        }
     }
 
     else //if color == 'b'
     {
-        rowDest = currRow - 1;
+        if (board[currRow - 1][currCol] == nullptr)
+        {
+            if (this->hasMoved == false)
+            {
+                rowDest = currRow - 2;
 
-        validDest2.at(0) = rowDest;
-        validDest2.at(1) = currCol;
+                validDest1.at(0) = rowDest;
+                validDest1.at(1) = currCol;
 
-        validDestinations.push_back(validDest2);
+                validDestinations.push_back(validDest1);
+            }
+
+            rowDest = currRow - 1;
+
+            validDest2.at(0) = rowDest;
+            validDest2.at(1) = currCol;
+
+            validDestinations.push_back(validDest2);
+        }
+
+        else if (board[currRow - 1][currCol] != nullptr && board[currRow + 1][currCol]->color != this->color)
+        {
+            if (board[currRow - 1][currCol + 1] != nullptr && board[currRow - 1][currCol + 1]->color != this->color)
+            {
+                validDest1.at(0) = currRow - 1;
+                validDest1.at(1) = currCol + 1;
+
+                validDestinations.push_back(validDest1);
+            }
+
+            else if (board[currRow - 1][currCol - 1] != nullptr && board[currRow - 1][currCol - 1]->color != this->color)
+            {
+                validDest2.at(0) = currRow - 1;
+                validDest2.at(1) = currCol - 1;
+
+                validDestinations.push_back(validDest2);
+            }
+        }
     }
-
-    //ADD VALIDDEST3/4 FOR CAPTURING PIECE IN DIAGNOL
 
     for (unsigned int counter = 0; counter < validDestinations.size(); ++counter)
     {
@@ -93,7 +133,6 @@ vector<vector<int>> Pawn::validDestinations(Piece* board[8][8])
             {
                 validDestinations.erase(validDestinations.begin() + counter);
                 --counter;
-                break;
             }
         }
     }
