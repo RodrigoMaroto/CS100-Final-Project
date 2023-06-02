@@ -49,7 +49,8 @@ vector<vector<int>> King::validDestinations(Piece* board[8][8]) {
                 //& adds to list of moves
                     pos.at(0) = row;
                     pos.at(1) = column;
-                    if(board[row][column]->color == this -> color){}// piece of same color in way
+                    if(board[row][column]->color == nullptr){}
+                    else if(board[row][column]->color == this -> color){}// piece of same color in way
                     else{
                         allMoves.push_back(pos);
                     }
