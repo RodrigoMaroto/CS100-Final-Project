@@ -9,6 +9,7 @@ class King : public Piece
         King(char col, vector<int> pos);
         string getDisplayChar();
         vector<vector<int>> validDestinations(Piece* board[8][8]) override;
+        bool inCheck(Piece* board[8][8]);
 };
 
 #endif

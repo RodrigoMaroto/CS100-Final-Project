@@ -75,3 +75,6 @@ return allMoves;
 
 }
 
+bool King::inCheck(Piece* board[8][8]){
+    return false;
+}
