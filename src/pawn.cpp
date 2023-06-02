@@ -127,13 +127,11 @@ vector<vector<int>> Pawn::validDestinations(Piece* board[8][8])
 
     for (unsigned int counter = 0; counter < validDestinations.size(); ++counter)
     {
-        for (unsigned int count = 0; count < 2; ++count)
+        if ((validDestinations[counter][0] > 7 || validDestinations[counter][0] < 0) ||
+            (validDestinations[counter][1] > 7 || validDestinations[counter][1] < 0))
         {
-            if (validDestinations[counter][count] > 7 || validDestinations[counter][count] < 0)
-            {
-                validDestinations.erase(validDestinations.begin() + counter);
-                --counter;
-            }
+            validDestinations.erase(validDestinations.begin() + counter);
+            --counter;
         }
     }
 
