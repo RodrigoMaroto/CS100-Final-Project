@@ -134,8 +134,8 @@ vector<vector<int>> Knight::validDestinations(Piece* board[8][8])
 
     for (unsigned int counter = 0; counter < validDestinations.size(); ++counter)
     {
-        if (board[validDestinations[counter][1]][validDestinations[counter][2]] != nullptr && 
-            board[validDestinations[counter][1]][validDestinations[counter][2]]->color == this->color)
+        if (board[validDestinations[counter][0]][validDestinations[counter][1]] != nullptr && 
+            board[validDestinations[counter][0]][validDestinations[counter][1]]->color == this->color)
         {
             validDestinations.erase(validDestinations.begin() + counter);
             --counter;
