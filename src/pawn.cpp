@@ -1,16 +1,17 @@
 #include "../header/pawn.h"
+#include <vector>
 
 Pawn::Pawn(char col, vector<int> pos)
 {
-    color = col;
-    position = pos;
-    hasMoved = false;
+    this->color = col;
+    this->position = pos;
+    this->hasMoved = false;
 }
 
 string Pawn::getDisplayChar()
 {
     string displayChar = "no char";
-    if (color == 'b')
+    if (this->color == 'b')
     {
         displayChar = "♙";
     } 
@@ -25,77 +26,77 @@ string Pawn::getDisplayChar()
 
 vector<vector<int>> Pawn::validDestinations(Piece* board[8][8])
 {
-    int currRow = position.at(0);
-    int currCol = position.at(1);
+    int currRow = this->position.at(0);
+    int currCol = this->position.at(1);
     int rowDest;
-    int colDest;
 
     vector<vector<int>> validDestinations;
-    vector<int> validDest;
 
-    if (hasMoved == false)
+    if (this->hasMoved == false)
     {
+        vector<int> validDest1;
+        validDest1.push_back(0);
+        validDest1.push_back(0);
+
         if (color == 'w')
         {
             rowDest = currRow + 2;
-            colDest = 0;
 
-            validDest.push_back(rowDest);
-            validDest.push_back(colDest);
+            validDest1.at(0) = rowDest;
+            validDest1.at(1) = currCol;
 
-            validDestinations.push_back(validDest);
+            validDestinations.push_back(validDest1);
         }
 
         else //if color == 'b'
         {
             rowDest = currRow - 2;
-            colDest = 0;
 
-            validDest.push_back(rowDest);
-            validDest.push_back(colDest);
+            validDest1.at(0) = rowDest;
+            validDest1.at(1) = currCol;
 
-            validDestinations.push_back(validDest);
+            validDestinations.push_back(validDest1);
         }
-
-        validDest.clear();
     }
+
+    vector<int> validDest2;
+    validDest2.push_back(0);
+    validDest2.push_back(0);
 
     if (color == 'w')
     {
         rowDest = currRow + 1;
-        colDest = 0;
 
-        validDest.push_back(rowDest);
-        validDest.push_back(colDest);
+        validDest2.at(0) = rowDest;
+        validDest2.at(1) = currCol;
 
-        validDestinations.push_back(validDest);
+        validDestinations.push_back(validDest2);
     }
 
     else //if color == 'b'
     {
         rowDest = currRow - 1;
-        colDest = 0;
 
-        validDest.push_back(rowDest);
-        validDest.push_back(colDest);
+        validDest2.at(0) = rowDest;
+        validDest2.at(1) = currCol;
 
-        validDestinations.push_back(validDest);
+        validDestinations.push_back(validDest2);
     }
 
-    validDest.clear();
+    //ADD VALIDDEST3/4 FOR CAPTURING PIECE IN DIAGNOL
 
     for (unsigned int counter = 0; counter < validDestinations.size(); ++counter)
     {
-        for (unsigned int count = 0; count < validDestinations.at(counter).size(); ++count)
+        for (unsigned int count = 0; count < 2; ++count)
         {
-            if (validDestinations.at(counter).at(count) > 7 || validDestinations.at(counter).at(count) < 0)
+            if (validDestinations[counter][count] > 7 || validDestinations[counter][count] < 0)
             {
+                validDestinations.erase(validDestinations.begin() + counter);
+                --counter;
                 break;
             }
         }
-
-        validDestinations.erase(validDestinations.begin() + counter);
     }
 
     return validDestinations;
-}
+}   

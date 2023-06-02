@@ -30,83 +30,114 @@ vector<vector<int>> Knight::validDestinations(Piece* board[8][8])
     int colDest;
 
     vector<vector<int>> validDestinations;
-    vector<int> validDest;
+
+    vector<int> validDest1;
+    validDest1.push_back(0);
+    validDest1.push_back(0);
 
     rowDest = currRow + 1;
     colDest = currCol + 2;
 
-    validDest.push_back(rowDest);
-    validDest.push_back(colDest);
+    validDest1.at(0) = rowDest;
+    validDest1.at(1) = colDest;
 
-    validDestinations.push_back(validDest);
+    validDestinations.push_back(validDest1);
 
-    validDest.pop_back();
+    vector<int> validDest2;
+    validDest2.push_back(0);
+    validDest2.push_back(0);
+
     colDest = currCol - 2;
-    validDest.push_back(colDest);
+    validDest2.at(0) = rowDest;
+    validDest2.at(1) = colDest;
 
-    validDestinations.push_back(validDest);
+    validDestinations.push_back(validDest2);
 
-    validDest.clear();
+    vector<int> validDest3;
+    validDest3.push_back(0);
+    validDest3.push_back(0);
 
     rowDest = currRow - 1;
     colDest = currCol - 2;
 
-    validDest.push_back(rowDest);
-    validDest.push_back(colDest);
+    validDest3.at(0) = rowDest;
+    validDest3.at(1) = colDest;
 
-    validDestinations.push_back(validDest);
+    validDestinations.push_back(validDest3);
 
-    validDest.pop_back();
+    vector<int> validDest4;
+    validDest4.push_back(0);
+    validDest4.push_back(0);
+
     colDest = currCol + 2;
-    validDest.push_back(colDest);
+    validDest4.at(0) = rowDest;
+    validDest4.at(1) = colDest;
 
-    validDestinations.push_back(validDest);
+    validDestinations.push_back(validDest4);
 
-    validDest.clear();
+    vector<int> validDest5;
+    validDest5.push_back(0);
+    validDest5.push_back(0);
 
     rowDest = currRow + 2;
     colDest = currCol + 1;
 
-    validDest.push_back(rowDest);
-    validDest.push_back(colDest);
+    validDest5.at(0) = rowDest;
+    validDest5.at(1) = colDest;
 
-    validDestinations.push_back(validDest);
+    validDestinations.push_back(validDest5);
 
-    validDest.pop_back();
+    vector<int> validDest6;
+    validDest6.push_back(0);
+    validDest6.push_back(0);
+
     colDest = currCol - 1;
-    validDest.push_back(colDest);
+    validDest6.at(0) = rowDest;
+    validDest6.at(1) = colDest;
 
-    validDestinations.push_back(validDest);
+    validDestinations.push_back(validDest6);
 
-    validDest.clear();
+    vector<int> validDest7;
+    validDest7.push_back(0);
+    validDest7.push_back(0);
 
     rowDest = currRow - 2;
     colDest = currCol - 1;
 
-    validDest.push_back(rowDest);
-    validDest.push_back(colDest);
+    validDest7.at(0) = rowDest;
+    validDest7.at(1) = colDest;
 
-    validDestinations.push_back(validDest);
+    validDestinations.push_back(validDest7);
 
-    validDest.pop_back();
+
+    vector<int> validDest8;
+    validDest8.push_back(0);
+    validDest8.push_back(0);
+
     colDest = currCol + 1;
-    validDest.push_back(colDest);
+    validDest8.at(0) = rowDest;
+    validDest8.at(1) = colDest;
 
-    validDestinations.push_back(validDest);
-
-    validDest.clear();
+    validDestinations.push_back(validDest8);
 
     for (unsigned int counter = 0; counter < validDestinations.size(); ++counter)
     {
-        for (unsigned int count = 0; count < validDestinations.at(counter).size(); ++count)
+        if ((validDestinations[counter][0] > 7 || validDestinations[counter][0] < 0) ||
+            (validDestinations[counter][1] > 7 || validDestinations[counter][1] < 0))
         {
-            if (validDestinations.at(counter).at(count) > 7 || validDestinations.at(counter).at(count) < 0)
-            {
-                break;
-            }
+            validDestinations.erase(validDestinations.begin() + counter);
+            --counter;
         }
+    }
 
-        validDestinations.erase(validDestinations.begin() + counter);
+    for (unsigned int counter = 0; counter < validDestinations.size(); ++counter)
+    {
+        if (board[validDestinations[counter][0]][validDestinations[counter][1]] != nullptr && 
+            board[validDestinations[counter][0]][validDestinations[counter][1]]->color == this->color)
+        {
+            validDestinations.erase(validDestinations.begin() + counter);
+            --counter;
+        }
     }
 
     return validDestinations;
