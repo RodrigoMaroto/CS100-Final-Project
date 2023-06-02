@@ -17,6 +17,15 @@ Game_Manager::Game_Manager(){
 void Game_Manager::move(vector<int> destination, vector<int> currentLocation){
     
 }
+//This will be checked at the end of the turn, so it must be checked for the opposite color
+//Or pass it as a parameter
+bool Game_Manager::isCheckMate(){ 
+    return false;
+}
+
+bool Game_Manager::isStalemate(){
+    return false;
+}
 
 bool Game_Manager::tempCheck(vector<int> destination, vector<int> currentLocation){
     return false;

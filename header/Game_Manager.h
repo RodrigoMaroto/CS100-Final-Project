@@ -19,7 +19,7 @@ class Game_Manager
 
     public:
         Game_Manager();
-        bool inCheckMate();
+        bool isCheckMate();
         bool isStalemate();
         bool promote(vector<vector<int>> moves);
         bool castle(vector<vector<int>> moves);
