@@ -31,7 +31,43 @@ bool Game_Manager::isCheckMate(){
 }
 
 bool Game_Manager::isStalemate(){
-    return false;
+    // As this will be executed after a move, isWhiteTurn has already been changed, and therefore we are checking for opponent
+    // First check if king is in check
+    vector<int> position;
+    position.push_back(0);
+    position.push_back(0);
+    if (tempCheck(position, position))
+        return false;
+    // Loop through all pieces, if one move is valid and does not provoke a check, return false
+    for (int i = 0; i < 8; i++){
+        for (int j = 0; j < 8; j++){
+            if (chessboard.board[i][j] != nullptr){
+                if(isWhiteTurn){
+                    if(chessboard.board[i][j]->color == 'w'){
+                        vector<vector<int>> destinations = chessboard.board[i][j]->validDestinations(chessboard.board);
+                        for (const auto& dest : destinations) {
+                            if (!tempCheck(dest, chessboard.board[i][j]->position))
+                                return false;
+                        }
+                    }
+                }
+                else{
+                    if(chessboard.board[i][j]->color == 'b'){
+                        vector<vector<int>> destinations = chessboard.board[i][j]->validDestinations(chessboard.board);
+                        for (const auto& dest : destinations) {
+                            if (!tempCheck(dest, chessboard.board[i][j]->position))
+                                return false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //At the end, change member variables and return
+    isDraw = true;
+    isGameFinished = true;
+    return true;
 }
 
 bool Game_Manager::tempCheck(vector<int> destination, vector<int> currentLocation){
