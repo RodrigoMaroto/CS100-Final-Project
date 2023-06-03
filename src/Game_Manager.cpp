@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+//g++ src/main.cpp src/Game_Manager.cpp src/Chess_Board.cpp src/pawn.cpp src/bishop.cpp src/king.cpp src/queen.cpp src/knight.cpp src/rook.cpp
 using namespace std;
 
 Game_Manager::Game_Manager(){
@@ -39,79 +40,75 @@ bool Game_Manager::tempCheck(vector<int> destination, vector<int> currentLocatio
 }
 
 bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementation
-    /*initialize bool isValidPromote to false
+    /* Pseudo Code
+    initialize bool isValidPromote to false
     if board at position of location is a pawn
-    if blacks turn and destination is whites side or if whites turn and destination is blacks side
+    if black is moving its pawn to whites side or if white is moving pawn to blacks side
     isValidPromote is true
     give user a choice of a piece to get back as a char (B, N, K, Q, R, P)
     check char against each piece for match, 
     if match create a new piece accordingly, delete pawn from board, place piece on ending location of pawn
+    other players turn
     return isValidPromote*/
     bool isValidPromote = false;
     Piece* pawn = chessboard.board[moves[0][0]][moves[0][1]];
     Pawn* pawnChecker = dynamic_cast<Pawn*>(pawn);
     if(pawnChecker != nullptr){//piece is a pawn 
-        if((isWhiteTurn && (pawn->color == 'w') && (moves[1][0] == 8))  
-            || (!isWhiteTurn && (pawn->color == 'b') && (moves[1][0] == 1))) {
+        if((isWhiteTurn && (pawn->color == 'w') && (moves[1][0] == 7))  
+            || (!isWhiteTurn && (pawn->color == 'b') && (moves[1][0] == 0))) {
             isValidPromote = true;
-            cout << "Enter letter of the piece you would like to promote your pawn to:" << endl;
+            cout << "Input letter of the piece you would like to promote your pawn to:" << endl;
             cout << "Q -> Queen\nB -> Bishop\nR -> Rook\nN -> Knight\n";
             char newPieceChar;
-            cin >> newPieceChar;
-            cout << endl;
             delete pawn;
+            chessboard.board[moves[0][0]][moves[0][1]] = nullptr;
             bool validLetter = false;
             while(!validLetter){
+                cin >> newPieceChar;
+                cout << endl;
                 if(newPieceChar == 'Q' || newPieceChar == 'q'){
                     validLetter = true;
                     if(isWhiteTurn)
-                        addPiece({moves[1][0],moves[1][1]}, 'q', 'w');
+                        chessboard.addPiece({moves[1][0],moves[1][1]}, 'q', 'w');
                     else{
-                        addPiece({moves[1][0], moves[1][1]}, 'q', 'b');
+                        chessboard.addPiece({moves[1][0], moves[1][1]}, 'q', 'b');
                     }
-                        break;
                 }
                 else if(newPieceChar == 'B' || newPieceChar == 'b'){
                     validLetter = true;
                     if(isWhiteTurn)
-                        addPiece({moves[1][0], moves[1][1]}, 'b', 'w');
+                        chessboard.addPiece({moves[1][0], moves[1][1]}, 'b', 'w');
                     else{
-                        addPiece({moves[1][0], moves[1][1]}, 'b', 'b');
+                        chessboard.addPiece({moves[1][0], moves[1][1]}, 'b', 'b');
                     }
-                        break;
                 }
                 else if(newPieceChar == 'R' || newPieceChar == 'r'){
                     validLetter = true;
                     if(isWhiteTurn)
-                        addPiece({moves[1][0], moves[1][1]}, 'r', 'w');
+                        chessboard.addPiece({moves[1][0], moves[1][1]}, 'r', 'w');
                     else{
-                        addPiece({moves[1][0], moves[1][1]}, 'r', 'b');
+                        chessboard.addPiece({moves[1][0], moves[1][1]}, 'r', 'b');
                     }
-                        break;
                 }
                 else if(newPieceChar == 'N' || newPieceChar == 'n'){
                     validLetter = true;
                     if(isWhiteTurn)
-                        addPiece({moves[1][0], moves[1][1]}, 'n', 'w');
+                        chessboard.addPiece({moves[1][0], moves[1][1]}, 'n', 'w');
                     else{
-                        addPiece({moves[1][0], moves[1][1]}, 'n', 'b');
+                        chessboard.addPiece({moves[1][0], moves[1][1]}, 'n', 'b');
                     }
-                        break;
                 }
                 else{
                     cout << "Invalid input" << endl;
-                    cout << "Enter letter of the piece you would like to promote your pawn to" << endl;
+                    cout << "Input letter of the piece you would like to promote your pawn to" << endl;
                     cout << "Q -> Queen\nB -> Bishop\nR -> Rook\nN -> Knight\n";
                 }
             }
         }
     }
+    this->isWhiteTurn != isWhiteTurn;
     return isValidPromote;
 }
-
-    
-    
-
 
 bool Game_Manager::castle(vector<vector<int>> moves){ //missing implementation
     return false;
