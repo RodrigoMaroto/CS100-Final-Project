@@ -39,8 +39,79 @@ bool Game_Manager::tempCheck(vector<int> destination, vector<int> currentLocatio
 }
 
 bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementation
-    return false;
+    /*initialize bool isValidPromote to false
+    if board at position of location is a pawn
+    if blacks turn and destination is whites side or if whites turn and destination is blacks side
+    isValidPromote is true
+    give user a choice of a piece to get back as a char (B, N, K, Q, R, P)
+    check char against each piece for match, 
+    if match create a new piece accordingly, delete pawn from board, place piece on ending location of pawn
+    return isValidPromote*/
+    bool isValidPromote = false;
+    Piece* pawn = chessboard.board[moves[0][0]][moves[0][1]];
+    Pawn* pawnChecker = dynamic_cast<Pawn*>(pawn);
+    if(pawnChecker != nullptr){//piece is a pawn 
+        if((isWhiteTurn && (pawn->color == 'w') && (moves[1][0] == 8))  
+            || (!isWhiteTurn && (pawn->color == 'b') && (moves[1][0] == 1))) {
+            isValidPromote = true;
+            cout << "Enter letter of the piece you would like to promote your pawn to:" << endl;
+            cout << "Q -> Queen\nB -> Bishop\nR -> Rook\nN -> Knight\n";
+            char newPieceChar;
+            cin >> newPieceChar;
+            cout << endl;
+            delete pawn;
+            bool validLetter = false;
+            while(!validLetter){
+                if(newPieceChar == 'Q' || newPieceChar == 'q'){
+                    validLetter = true;
+                    if(isWhiteTurn)
+                        addPiece({moves[1][0],moves[1][1]}, 'q', 'w');
+                    else{
+                        addPiece({moves[1][0], moves[1][1]}, 'q', 'b');
+                    }
+                        break;
+                }
+                else if(newPieceChar == 'B' || newPieceChar == 'b'){
+                    validLetter = true;
+                    if(isWhiteTurn)
+                        addPiece({moves[1][0], moves[1][1]}, 'b', 'w');
+                    else{
+                        addPiece({moves[1][0], moves[1][1]}, 'b', 'b');
+                    }
+                        break;
+                }
+                else if(newPieceChar == 'R' || newPieceChar == 'r'){
+                    validLetter = true;
+                    if(isWhiteTurn)
+                        addPiece({moves[1][0], moves[1][1]}, 'r', 'w');
+                    else{
+                        addPiece({moves[1][0], moves[1][1]}, 'r', 'b');
+                    }
+                        break;
+                }
+                else if(newPieceChar == 'N' || newPieceChar == 'n'){
+                    validLetter = true;
+                    if(isWhiteTurn)
+                        addPiece({moves[1][0], moves[1][1]}, 'n', 'w');
+                    else{
+                        addPiece({moves[1][0], moves[1][1]}, 'n', 'b');
+                    }
+                        break;
+                }
+                else{
+                    cout << "Invalid input" << endl;
+                    cout << "Enter letter of the piece you would like to promote your pawn to" << endl;
+                    cout << "Q -> Queen\nB -> Bishop\nR -> Rook\nN -> Knight\n";
+                }
+            }
+        }
+    }
+    return isValidPromote;
 }
+
+    
+    
+
 
 bool Game_Manager::castle(vector<vector<int>> moves){ //missing implementation
     return false;
