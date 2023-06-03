@@ -42,8 +42,6 @@ bool Game_Manager::tempCheck(vector<int> destination, vector<int> currentLocatio
 }
 
 bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementation
-    //still need to check if destination is valid, check that move does not provoke a check
-    
     /* Pseudo Code
     initialize bool isValidPromote to false
     if board at position of location is a pawn
@@ -57,11 +55,11 @@ bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementation
     bool isValidPromote = false;
     Piece* pawn = chessboard.board[moves[0][0]][moves[0][1]];
     Pawn* pawnChecker = dynamic_cast<Pawn*>(pawn);
-    if(isVectorInVector(moves[1], pawn->validDestinations(chessboard.board))){
-        if (!tempCheck(moves[1], moves[0])){
-            if(pawnChecker != nullptr){//piece is a pawn 
-                if((isWhiteTurn && (pawn->color == 'w') && (moves[1][0] == 7))  
-                    || (!isWhiteTurn && (pawn->color == 'b') && (moves[1][0] == 0))) {
+    if(pawnChecker != nullptr){
+        if ((isWhiteTurn && (pawn->color == 'w') && (moves[1][0] == 7))  
+            || (!isWhiteTurn && (pawn->color == 'b') && (moves[1][0] == 0))){
+            if(isVectorInVector(moves[1], pawn->validDestinations(chessboard.board))){//piece is a pawn 
+                if(!tempCheck(moves[1], moves[0])) {
                     isValidPromote = true;
                     cout << "Input letter of the piece you would like to promote your pawn to:" << endl;
                     cout << "Q -> Queen\nB -> Bishop\nR -> Rook\nN -> Knight\n";
