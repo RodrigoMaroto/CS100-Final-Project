@@ -40,15 +40,22 @@ bool Game_Manager::tempCheck(vector<int> destination, vector<int> currentLocatio
     Piece* piece = chessboard.board[currentLocation[0]][currentLocation[1]];
     chessboard.board[currentLocation[0]][currentLocation[1]] = nullptr;
     chessboard.board[destination[0]][destination[1]] = piece;
-
+    King* king;
+    Piece* kingPiece;
     //Call check
+    if (isWhiteTurn)
+        kingPiece = chessboard.findKing('w');
+    else
+        kingPiece = chessboard.findKing('b');
     
+    king = static_cast<King*>(kingPiece);
+    bool result = king->inCheck(chessboard.board);
 
     //Restore board
     chessboard.board[currentLocation[0]][currentLocation[1]] = piece;
     chessboard.board[destination[0]][destination[1]] = dest;
 
-    return false;
+    return result;
 }
 
 bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementation

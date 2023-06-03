@@ -22,6 +22,7 @@ class Chess_Board
         Piece* board[8][8];
         void addPiece(vector<int> position, char piece, char color);
         void initBoard();
+        Piece* findKing(char color);
 };
 
 #endif
