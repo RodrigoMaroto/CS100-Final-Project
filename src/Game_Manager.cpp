@@ -40,6 +40,8 @@ bool Game_Manager::tempCheck(vector<int> destination, vector<int> currentLocatio
     Piece* piece = chessboard.board[currentLocation[0]][currentLocation[1]];
     chessboard.board[currentLocation[0]][currentLocation[1]] = nullptr;
     chessboard.board[destination[0]][destination[1]] = piece;
+    if (piece != nullptr)
+        piece->position = destination;
     King* king;
     Piece* kingPiece;
     //Call check
@@ -54,6 +56,8 @@ bool Game_Manager::tempCheck(vector<int> destination, vector<int> currentLocatio
     //Restore board
     chessboard.board[currentLocation[0]][currentLocation[1]] = piece;
     chessboard.board[destination[0]][destination[1]] = dest;
+    if (piece != nullptr)
+        piece->position = currentLocation;
 
     return result;
 }
