@@ -41,7 +41,7 @@ bool Game_Manager::tempCheck(vector<int> destination, vector<int> currentLocatio
     return false;
 }
 
-bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementation
+bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementaation
     /* Pseudo Code
     initialize bool isValidPromote to false
     if board at position of location is a pawn
