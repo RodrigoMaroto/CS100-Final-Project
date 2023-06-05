@@ -75,3 +75,552 @@ return allMoves;
 
 }
 
+bool King::inCheck(Piece* board[8][8]){
+    string pieceChar = "";
+    int row = position.at(0);
+    int column = position.at(1);
+
+
+  // begin bishop-type checks
+  for(int i = 1; i <=7;++i){// up & right
+    row = position.at(0);
+    column = position.at(1);
+    row = row + i;
+    column = column +i;
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color == this -> color){//piece of same color in way
+            break;
+        }
+        else{//case when piece is opposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar =="♗" || pieceChar == "♝" || pieceChar == "♕" || pieceChar == "♛" ){
+                pieceChar = "";
+                return true;
+            }
+            
+        }
+      }
+    }
+    row = position.at(0);
+    column = position.at(1);
+    
+  }
+  
+  for(int i = 1; i <=7;++i){// up & left
+    row = position.at(0);
+    column = position.at(1);
+    row = row + i;
+    column = column -i;
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color == this -> color){//piece of same color in way
+            break;
+        }
+        else{//case when piece is opposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar =="♗" || pieceChar == "♝" || pieceChar == "♕" || pieceChar == "♛" ){
+                pieceChar = "";
+                return true;
+            }
+            
+        }
+      }
+    }
+    row = position.at(0);
+    column = position.at(1);
+    
+  }
+  
+  for(int i = 1; i <=7;++i){// down & right
+    row = position.at(0);
+    column = position.at(1);
+    row = row - i;
+    column = column +i;
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color == this -> color){//piece of same color in way
+            break;
+        }
+        else{//case when piece is opposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar =="♗" || pieceChar == "♝" || pieceChar == "♕" || pieceChar == "♛" ){
+                pieceChar = "";
+                return true;
+            }
+            
+        }
+      }
+    }
+    row = position.at(0);
+    column = position.at(1);
+    
+  }
+  
+  for(int i = 1; i <=7;++i){// down & left
+    row = position.at(0);
+    column = position.at(1);
+    row = row - i;
+    column = column - i;
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color == this -> color){//piece of same color in way
+            break;
+        }
+        else{//case when piece is opposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar =="♗" || pieceChar == "♝" || pieceChar == "♕" || pieceChar == "♛" ){
+                pieceChar = "";
+                return true;
+            }
+            
+        }
+      }
+    }
+    row = position.at(0);
+    column = position.at(1);
+    
+  }
+  
+//start rook checks
+  for(int i = 1; i <=7;++i){// right
+    row = position.at(0);
+    column = position.at(1);
+    row = row ;
+    column = column +i;
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color == this -> color){//piece of same color in way
+            break;
+        }
+        else{//case when piece is opposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar =="♖" || pieceChar == "♜" || pieceChar == "♕" || pieceChar == "♛" ){
+                pieceChar = "";
+                return true;
+            }
+            
+        }
+      }
+    }
+    row = position.at(0);
+    column = position.at(1);
+    
+  }
+  
+  for(int i = 1; i <=7;++i){// left
+    row = position.at(0);
+    column = position.at(1);
+    row = row ;
+    column = column - i;
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color == this -> color){//piece of same color in way
+            break;
+        }
+        else{//case when piece is opposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar =="♖" || pieceChar == "♜" || pieceChar == "♕" || pieceChar == "♛" ){
+                pieceChar = "";
+                return true;
+            }
+            
+        }
+      }
+    }
+    row = position.at(0);
+    column = position.at(1);
+    
+  }
+  
+  for(int i = 1; i <=7;++i){// up
+    row = position.at(0);
+    column = position.at(1);
+    row = row + i;
+    column = column ;
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color == this -> color){//piece of same color in way
+            break;
+        }
+        else{//case when piece is opposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar =="♖" || pieceChar == "♜" || pieceChar == "♕" || pieceChar == "♛" ){
+                pieceChar = "";
+                return true;
+            }
+            
+        }
+      }
+    }
+    row = position.at(0);
+    column = position.at(1);
+    
+  }
+  
+  for(int i = 1; i <=7;++i){// down
+    row = position.at(0);
+    column = position.at(1);
+    row = row -1;
+    column = column;
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color == this -> color){//piece of same color in way
+            break;
+        }
+        else{//case when piece is opposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar =="♖" || pieceChar == "♜" || pieceChar == "♕" || pieceChar == "♛" ){
+                pieceChar = "";
+                return true;
+            }
+            
+        }
+      }
+    }
+    row = position.at(0);
+    column = position.at(1);
+    
+  }
+  
+
+  //start pawn & knight checks
+    row = position.at(0);
+    column = position.at(1);
+if(this -> color == 'w'){
+   row = row +1;
+   column = column + 1; //pawn right diagonal
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♙"){
+                return true;
+            }
+        }
+      }
+    }
+ 
+  row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row +1;
+  column = column - 1; //pawn left diagonal
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♙"){
+                return true;
+            }
+        }
+      }
+    }
+
+//knight checks
+  row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row + 2;//knight location 1 (positions numbered by location clockwise)
+  column = column + 1; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♘"){
+                return true;
+            }
+        }
+      }
+    }
+
+
+row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row + 1;//knight location 2 (positions numbered by location clockwise)
+  column = column + 2; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♘"){
+                return true;
+            }
+        }
+      }
+    }
+
+  row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row - 1;//knight location 3 (positions numbered by location clockwise)
+  column = column + 2; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♘"){
+                return true;
+            }
+        }
+      }
+    }
+
+  row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row - 2;//knight location 4 (positions numbered by location clockwise)
+  column = column + 1; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♘"){
+                return true;
+            }
+        }
+      }
+    }
+
+  row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row - 2;//knight location 5 (positions numbered by location clockwise)
+  column = column - 1; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♘"){
+                return true;
+            }
+        }
+      }
+    }
+
+row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row - 1;//knight location 6 (positions numbered by location clockwise)
+  column = column - 2; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♘"){
+                return true;
+            }
+        }
+      }
+    }
+
+  row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row + 1;//knight location 7 (positions numbered by location clockwise)
+  column = column - 2; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♘"){
+                return true;
+            }
+        }
+      }
+    }
+
+
+  row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row + 2;//knight location 8 (positions numbered by location clockwise)
+  column = column - 1; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♘"){
+                return true;
+            }
+        }
+      }
+    }
+
+
+
+}
+else{//black king
+//pawn checks 
+row = row - 1;
+   column = column + 1; //pawn right diagonal
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♟︎"){
+                return true;
+            }
+        }
+      }
+    }
+ 
+  row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row - 1;
+  column = column - 1; //pawn left diagonal
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♟︎"){
+                return true;
+            }
+        }
+      }
+    }
+
+
+//knight ckecks
+
+//knight checks
+  row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row + 2;//knight location 1 (positions numbered by location clockwise)
+  column = column + 1; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♞"){
+                return true;
+            }
+        }
+      }
+    }
+
+
+row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row + 1;//knight location 2 (positions numbered by location clockwise)
+  column = column + 2; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♞"){
+                return true;
+            }
+        }
+      }
+    }
+
+  row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row - 1;//knight location 3 (positions numbered by location clockwise)
+  column = column + 2; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♞"){
+                return true;
+            }
+        }
+      }
+    }
+
+  row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row - 2;//knight location 4 (positions numbered by location clockwise)
+  column = column + 1; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♞"){
+                return true;
+            }
+        }
+      }
+    }
+
+  row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row - 2;//knight location 5 (positions numbered by location clockwise)
+  column = column - 1; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♞"){
+                return true;
+            }
+        }
+      }
+    }
+
+row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row - 1;//knight location 6 (positions numbered by location clockwise)
+  column = column - 2; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♞"){
+                return true;
+            }
+        }
+      }
+    }
+
+  row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row + 1;//knight location 7 (positions numbered by location clockwise)
+  column = column - 2; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♞"){
+                return true;
+            }
+        }
+      }
+    }
+
+
+  row = position.at(0);//reset row and column to match king location
+  column = position.at(1);
+ 
+  row = row + 2;//knight location 8 (positions numbered by location clockwise)
+  column = column - 1; 
+    if((row >=0 && row <= 7)&&(column >=0 && column <=7)){// checks if location is on the board
+      if(board[row][column] != nullptr){
+        if(board[row][column]->color != this -> color){//piece of oposite color
+            pieceChar = board[row][column]->getDisplayChar();
+            if(pieceChar == "♞"){
+                return true;
+            }
+        }
+      }
+    }
+
+
+
+}
+
+
+return false;
+
+}
