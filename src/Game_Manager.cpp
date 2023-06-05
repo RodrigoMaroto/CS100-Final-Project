@@ -60,6 +60,8 @@ bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementaation
             || (!isWhiteTurn && (pawn->color == 'b') && (moves[1][0] == 0))){
             if(isVectorInVector(moves[1], pawn->validDestinations(chessboard.board))){//piece is a pawn 
                 if(!tempCheck(moves[1], moves[0])) {
+                    Piece* destination = chessboard.board[moves[1][0]][moves[1][1]];
+                    if(destination !=  nullptr){ delete destination;}
                     isValidPromote = true;
                     cout << "Input letter of the piece you would like to promote your pawn to:" << endl;
                     cout << "Q -> Queen\nB -> Bishop\nR -> Rook\nN -> Knight\n";
