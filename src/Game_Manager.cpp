@@ -43,6 +43,52 @@ bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementation
 }
 
 bool Game_Manager::castle(vector<vector<int>> moves){ //missing implementation
+    /*
+        create bool isValidCastle
+        create pointer to possibleKing
+        create pointer to possibleRookQueenSide
+        create pointer to possibleRookKingSide
+        if piece at starting location is a king and king has not moved
+        if (ending location is a Queenside castle and rook is on queenside)
+        {
+            if rook to be castled has not moved
+            {
+                if(rook and king are the same color and it is that color's turn)
+                {
+                    if there are no pieces between rook and king
+                    {
+                        if the king is not currently inCheck 
+                        and king's path does not result in check at any step
+                        {
+                            isValidCastle = true;
+                            implement
+                        }
+                    }
+                }
+                
+            }
+        }
+        else if (ending location is a kingside castle and rook is on kingside)
+        {
+            if rook to be castled has not moved 
+            {
+                if(rook and king are the same color and it is that color's turn)
+                {
+                    if there are no pieces between rook and king
+                    {
+                        if the king is not currently inCheck 
+                        and king's path does not result in check at any step
+                        {
+                            isValideCastle = true;
+                            implement
+                        }
+                    }
+                }
+            }
+        }
+        return isValidCastle
+    */
+    bool isValidCastle;
     return false;
 }
 
