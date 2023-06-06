@@ -9,7 +9,6 @@ using testing::UnorderedElementsAreArray;
 TEST(MockTest, test1){
     EXPECT_TRUE(1==1);
 }
-
 TEST(ValidDestinations, BishopNearCenter)
 {
    Chess_Board myBoard = Chess_Board();
@@ -47,12 +46,11 @@ TEST(ValidDestinations, BishopNearEdge)
    pos.at(0) = 0;
    pos.at(1) = 4;
    myBoard.addPiece(pos, 'p', 'w');
-   Bishop* myBishop = dynamic_cast<Bishop*>(myBoard.board[3][4]);
+   Bishop* myBishop = dynamic_cast<Bishop*>(myBoard.board[3][1]);
    vector<vector<int>> allMoves = myBishop->validDestinations(myBoard.board);
    vector<vector<int>> matcher = {{4,2},{5,3},{6,4},{7,5},{2,2},{1,3},{2,0},{4,0}};
    EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
 }
-
 TEST(ValidDestinations, RookNearCenter)
 {
     Chess_Board myBoard = Chess_Board();
@@ -86,15 +84,35 @@ TEST(ValidDestinations, RookAtEdge)
     myBoard.addPiece(pos, 'r', 'w');
     pos.at(0) = 7;
     pos.at(1) = 0;
-    myBoard.addPiece(pos, 'p', 'b');
+    myBoard.addPiece(pos, 'p', 'w');
     pos.at(0) = 0;
     pos.at(1) = 7;
     myBoard.addPiece(pos, 'p', 'b');
-    Rook* myRook = dynamic_cast<Rook*>(myBoard.board[3][4]);
+    Rook* myRook = dynamic_cast<Rook*>(myBoard.board[0][0]);
     vector<vector<int>> allMoves = myRook->validDestinations(myBoard.board);
     vector<vector<int>> matcher = {{1,0},{2,0},{3,0},{4,0},{5,0},{6,0},{0,1},{0,2},{0,3},{0,4},{0,5},{0,6},{0,7}};
     EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
 }
+TEST(GetDisplayChar, WhiteBishop)
+{
+    Bishop myBishop = Bishop('w', {0,0});
+    EXPECT_EQ(myBishop.getDisplayChar(), "♝");
+}  
+TEST(GetDisplayChar, BlackBishop)
+{
+    Bishop myBishop = Bishop('b', {0,0});
+    EXPECT_EQ(myBishop.getDisplayChar(), "♗");
+}
+TEST(GetDisplayChar, WhiteRook)
+{
+    Rook myRook = Rook('w', {0,0});
+    EXPECT_EQ(myRook.getDisplayChar(), "♜");
+}  
+TEST(GetDisplayChar, BlackRook)
+{
+    Rook myRook = Rook('b', {0,0});
+    EXPECT_EQ(myRook.getDisplayChar(), "♖");
+}                                       
 
 
 

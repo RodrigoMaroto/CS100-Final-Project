@@ -42,7 +42,7 @@ bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementation
     return false;
 }
 
-bool Game_Manager::castle(vector<vector<int>> moves){ //missing implementation
+bool Game_Manager::castle(vector<vector<int>> moves){ 
     bool isValidCastle = false;
     Piece* king = chessboard.board[moves[0][0]][moves[0][1]];
     vector<int> kingDestination = {moves[1][0], moves[1][1]};
