@@ -5,8 +5,7 @@ using namespace std;
 bool startMenu();
 {
     cout << "Welcome to Chess!" << endl << endl;
-    cout << "Would you like to start a game? (type 'y' for yes or 'n' for no)"
-    cout << endl;
+    cout << "Would you like to start a game? (type 'y' for yes or 'n' for no)" << endl;
     char input;
     cin >> input;
     cout << endl;
@@ -27,7 +26,6 @@ bool startMenu();
     {
         return false;
     }
-    
 }
 
 int main(){
