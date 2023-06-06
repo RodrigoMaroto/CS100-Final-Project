@@ -196,6 +196,7 @@ void Game_Manager::inputMove(){
         if (input == "pause") {
             // Handle pause option
             // Invoke pause menu
+            pauseMenu();
             break;
         } 
         if (isValidInput(input)){
@@ -224,6 +225,45 @@ void Game_Manager::inputMove(){
     }
 }
 
+void Game_Manager::pauseMenu()
+{
+    cout << "Input: 'surrender' in order to forfeit the game or 'back' to go back to the game." << endl;
+    string input;
+    getline(cin, input);
+    cout << endl;
 
+    if (input == "surrender" || input == "back")
+    {
+        if (input == "surrender")
+        {
+            isGameFinished = true;
+
+            if (isWhiteTurn)
+            {
+                whiteWin = false;
+            }
+
+            else
+            {
+                whiteWin = true;
+            }
+
+            return;
+        }
+
+        else if (input == "back")
+        {
+            return;
+        }
+    }
+
+    //SUBJECT TO CHANGE!!!
+
+    else //if input is not "surrender" or "back"
+    {
+        cout << "invalid input" << endl;
+        pauseMenu();
+    }
+}
 
 
