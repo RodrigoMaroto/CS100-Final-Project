@@ -161,7 +161,7 @@ if ((moves[0][0] < 0 || moves[0][0] > 7) || (moves[0][1] < 0 || moves[0][1] > 7)
 
     if () //if chessboard.board[moves[0][0]][moves[0][1] == pawn
     {
-        if () //piece next to currLoc != nullptr && == pawn (chessboard.board[moves[0][0]][moves[1][1] == pawn)
+        if () //piece next to currLoc != nullptr && == pawn && != this->color (chessboard.board[moves[0][0]][moves[1][1] == pawn)
         {
             if () //checks if previous move (playedMoves.at(playedMoves.size() - 1))
                   //involves chessboard.board[moves[0][0]][moves[1][1] and chessboard.board[moves[0][0] +/- 2][moves[1][1]
