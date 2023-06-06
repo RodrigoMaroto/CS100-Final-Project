@@ -141,6 +141,52 @@ bool Game_Manager::castle(vector<vector<int>> moves){ //missing implementation
 }
 
 bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementation
+/*
+    moves[0][0] == initial row, moves[0][1] == initial column, moves[1][0] == new row, moves[1][1] == new column
+    check if piece at chessboard.board[moves[0][0]][moves[0][1]] == pawn
+    check if the piece next to it is a pawn as well (chessboard.board[moves[0][0]][moves[1][1] == pawn)
+    check if the previous move before involved the pawn moving 2 spaces (playedMoves.at(playedMoves.size() - 1))
+    check if the place it wants to move to is open and in the correct location for a proper en passant (moves[1] == enpassant location && nullptr)
+    if all condidtions met: call move function, switch turns, return true
+    (MAKE SURE YOU ACCOUNT FOR WHOSE TURN IT IS)
+    (ACCOUNT FOR THE BOUNDARIES)
+*/
+
+//CHECK BOUNDARIES
+if ((moves[0][0] < 0 || moves[0][0] > 7) || (moves[0][1] < 0 || moves[0][1] > 7) || 
+    (moves[1][0] < 0 || moves[1][0] > 7) || (moves[1][1] < 0 || moves[1][1] > 7))
+{
+    return false;
+}
+
+    if () //if chessboard.board[moves[0][0]][moves[0][1] == pawn
+    {
+        if () //piece next to currLoc != nullptr && == pawn (chessboard.board[moves[0][0]][moves[1][1] == pawn)
+        {
+            if () //checks if previous move (playedMoves.at(playedMoves.size() - 1))
+                  //involves chessboard.board[moves[0][0]][moves[1][1] and chessboard.board[moves[0][0] +/- 2][moves[1][1]
+            {
+                if () //white turn (checks if proper en passant)
+                {
+                    move(moves[1], moves[0]);
+                    isWhiteTurn = !isWhiteTurn;
+                    //make input again
+                    playedMoves.push_back(input);
+                    return true;
+                }
+
+                else if () //black turn (checks if proper en passant)
+                {
+                    move(moves[1], moves[0]);
+                    isWhiteTurn = !isWhiteTurn;
+                    //make input again
+                    playedMoves.push_back(input);
+                    return true;
+                }
+            }
+        }
+    }
+
     return false;
 }
 
