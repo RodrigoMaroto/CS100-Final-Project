@@ -147,7 +147,7 @@ bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementatio
     check if the piece next to it is a pawn as well (chessboard.board[moves[0][0]][moves[1][1] == pawn)
     check if the previous move before involved the pawn moving 2 spaces (playedMoves.at(playedMoves.size() - 1))
     check if the place it wants to move to is open and in the correct location for a proper en passant (moves[1] == enpassant location && nullptr)
-    if all condidtions met: call move function, switch turns, return true
+    if all condidtions met: call move function, switch turns, return true (chessboard.board[moves[0][0]][moves[1][1] == nullptr? / delete pawn there?)
     (MAKE SURE YOU ACCOUNT FOR WHOSE TURN IT IS)
     (ACCOUNT FOR THE BOUNDARIES)
 */
