@@ -113,6 +113,19 @@ TEST(GetDisplayChar, BlackRook)
     Rook myRook = Rook('b', {0,0});
     EXPECT_EQ(myRook.getDisplayChar(), "♖");
 }                                       
+TEST(Castle, KingSideWhite)
+{
+    Chess_Board myBoard = Chess_Board();
+    Game_Manager game = Game_Manager();
+    myBoard.addPiece({0,4}, 'k', 'w');
+    myBoard.addPiece({0,7}, 'r', 'w');
+    Piece* king = myBoard.board[0][4];
+    Piece* rook = myBoard.board[0][7];
+    vector<vector<int>> move = {{0,4},{0,6}};
+    EXPECT_TRUE(game.castle(move));
+    EXPECT_THAT(king->position, testing::UnorderedElementsAreArray<vector<int>>({0,6}));
+    EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({0,5}));
+}
 
 
 
