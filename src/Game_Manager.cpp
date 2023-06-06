@@ -59,10 +59,8 @@ bool Game_Manager::castle(vector<vector<int>> moves){ //missing implementation
                                     if(!tempCheck(king->position, king->position)){//king is not in check
                                         if(!tempCheck({0,5}, king->position) && !tempCheck({0,6},king->position)){//if king's path does not result in check
                                             isValidCastle = true;
-                                            delete rook;
-                                            delete king;
-                                            chessboard.addPiece({0,6}, 'k', 'w');
-                                            chessboard.addPiece({0,5}, 'r', 'w');
+                                            move({0,6}, king->position);
+                                            move({0,5}, rook->position);
                                         }
                                     }
                                 }
@@ -73,10 +71,8 @@ bool Game_Manager::castle(vector<vector<int>> moves){ //missing implementation
                                     if(!tempCheck(king->position, king->position)){//king is not in check
                                         if(!tempCheck({7,5},king->position) && !tempCheck({7,6},king->position)){//if king's path does not result in check
                                             isValidCastle = true;
-                                            delete rook;
-                                            delete king;
-                                            chessboard.addPiece({7,6}, 'k', 'b');
-                                            chessboard.addPiece({7,5}, 'r', 'b');
+                                            move({7,6}, king->position);
+                                            move({7,5}, rook->position);
                                         }
                                     }
                                 }
@@ -97,10 +93,8 @@ bool Game_Manager::castle(vector<vector<int>> moves){ //missing implementation
                                     if(!tempCheck(king->position, king->position)){//king is not in check
                                         if(!tempCheck({0,1},king->position) && !tempCheck({0,2},king->position) && !tempCheck({0,3},king->position)){//if king's path does not result in check
                                             isValidCastle = true;
-                                            delete rook;
-                                            delete king;
-                                            chessboard.addPiece({0,2}, 'k', 'w');
-                                            chessboard.addPiece({0,3}, 'r', 'w');
+                                            move({0,2}, king->position);
+                                            move({0,3}, rook->position);
                                         }
                                     }
                                 }
@@ -112,10 +106,8 @@ bool Game_Manager::castle(vector<vector<int>> moves){ //missing implementation
                                     if(!tempCheck(king->position, king->position)){//king is not in check
                                         if(!tempCheck({7,1},king->position) && !tempCheck({7,2},king->position) && !tempCheck({7,3},king->position)){//if king's path does not result in check
                                             isValidCastle = true;
-                                            delete rook;
-                                            delete king;
-                                            chessboard.addPiece({7,2}, 'k', 'b');
-                                            chessboard.addPiece({7,3}, 'r', 'b');
+                                            move({7,2}, king->position);
+                                            move({7,3}, rook->position);
                                         }
                                     }
                                 }
