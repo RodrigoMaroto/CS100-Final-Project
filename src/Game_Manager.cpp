@@ -197,7 +197,17 @@ void Game_Manager::inputMove(){
             // Handle pause option
             // Invoke pause menu
             pauseMenu();
-            break;
+
+            if (!isGameFinished)
+            {
+                cout << "Input move: "; //gets new input if player enters "back"
+                getline(cin, input);
+            }
+
+            else
+            {
+                break; //ends function if user enters "surrender"
+            }
         } 
         if (isValidInput(input)){
             vector<vector<int>> moves = parseInput(input);
