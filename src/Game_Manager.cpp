@@ -48,7 +48,7 @@ bool Game_Manager::castle(vector<vector<int>> moves){ //missing implementation
     vector<int> kingDestination = {moves[1][0], moves[1][1]};
     if(dynamic_cast<King*>(king) != nullptr){ //if piece is a king
         if(king->hasMoved == false){//if king has not moved
-            if(kingDestination == {moves[0][0], moves[0][1] + 2}){//position of king's destination is position of kingside castle
+            if(kingDestination[0] == moves[0][0] && kingDestination[1] == moves[0][1] + 2){//position of king's destination is position of kingside castle
                 Piece* rook = chessboard.board[moves[0][0]][7];
                 if(dynamic_cast<Rook*>(rook) != nullptr){//if rook is on kingside
                     if(rook->hasMoved == false){//rook has not moved
@@ -85,7 +85,7 @@ bool Game_Manager::castle(vector<vector<int>> moves){ //missing implementation
                     }
                 }
             }
-            else if(kingDestination == chessboard.board{moves[0][0], moves[0][1] - 2}){//king's destination is queenside castle
+            else if(kingDestination[0] == moves[0][0] && kingDestination[1] == moves[0][1] - 2){//king's destination is queenside castle
                 Piece* rook = chessboard.board[moves[0][0]][0];
                 if(dynamic_cast<Rook*>(rook) != nullptr){ //if rook is on queen side
                     if(rook->hasMoved == false){//rook has not moved
