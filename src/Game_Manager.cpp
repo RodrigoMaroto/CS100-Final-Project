@@ -232,8 +232,13 @@ void Game_Manager::pauseMenu()
     getline(cin, input);
     cout << endl;
 
-    if (input == "surrender" || input == "back")
+    while (input != "surrender" || input != "back")
     {
+        cout << "invalid input: enter 'surrender' or 'back'" << endl;
+        getline(cin, input);
+        cout << endl;
+    }
+
         if (input == "surrender")
         {
             isGameFinished = true;
@@ -247,23 +252,9 @@ void Game_Manager::pauseMenu()
             {
                 whiteWin = true;
             }
-
-            return;
         }
 
-        else if (input == "back")
-        {
-            return;
-        }
-    }
-
-    //SUBJECT TO CHANGE!!!
-
-    else //if input is not "surrender" or "back"
-    {
-        cout << "invalid input" << endl;
-        pauseMenu();
-    }
+        return;
 }
 
 
