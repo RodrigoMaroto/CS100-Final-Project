@@ -4,7 +4,10 @@
 #include <string>
 #include <vector>
 
+//g++ src/main.cpp src/Game_Manager.cpp src/Chess_Board.cpp src/pawn.cpp src/bishop.cpp src/king.cpp src/queen.cpp src/knight.cpp src/rook.cpp
 using namespace std;
+
+bool isVectorInVector(vector<int> target, vector<vector<int>> vectorList);
 
 Game_Manager::Game_Manager(){
     isWhiteTurn = true;
@@ -132,8 +135,72 @@ bool Game_Manager::tempCheck(vector<int> destination, vector<int> currentLocatio
     return result;
 }
 
-bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementation
-    return false;
+bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementaation
+    bool isValidPromote = false;
+    Piece* pawn = chessboard.board[moves[0][0]][moves[0][1]];
+    if(dynamic_cast<Pawn*>(pawn) != nullptr){//piece is a pawn
+        if ((isWhiteTurn && (pawn->color == 'w') && (moves[1][0] == 7))  //white's turn and moving white piece to black side
+            || (!isWhiteTurn && (pawn->color == 'b') && (moves[1][0] == 0))){//black's turn and moving black piece to white's side
+            if(isVectorInVector(moves[1], pawn->validDestinations(chessboard.board))){//destination is a valid Destination
+                if(!tempCheck(moves[1], moves[0])) {//destination is not under attack
+                    Piece* destination = chessboard.board[moves[1][0]][moves[1][1]];
+                    if(destination !=  nullptr){ delete destination; }// if destination has a piece, delete the piece
+                    isValidPromote = true;
+                    cout << "Input letter of the piece you would like to promote your pawn to:" << endl;
+                    cout << "Q -> Queen\nB -> Bishop\nR -> Rook\nN -> Knight\n";
+                    char newPieceChar;
+                    delete pawn;
+                    chessboard.board[moves[0][0]][moves[0][1]] = nullptr;
+                    bool validLetter = false;
+                    while(!validLetter){
+                        cin >> newPieceChar;
+                        cout << endl;
+                        if(newPieceChar == 'Q' || newPieceChar == 'q'){
+                            validLetter = true;
+                            if(isWhiteTurn)
+                                chessboard.addPiece({moves[1][0],moves[1][1]}, 'q', 'w');
+                            else{
+                                chessboard.addPiece({moves[1][0], moves[1][1]}, 'q', 'b');
+                            }
+                        }
+                        else if(newPieceChar == 'B' || newPieceChar == 'b'){
+                            validLetter = true;
+                            if(isWhiteTurn)
+                                chessboard.addPiece({moves[1][0], moves[1][1]}, 'b', 'w');
+                            else{
+                                chessboard.addPiece({moves[1][0], moves[1][1]}, 'b', 'b');
+                            }
+                        }
+                        else if(newPieceChar == 'R' || newPieceChar == 'r'){
+                            validLetter = true;
+                            if(isWhiteTurn)
+                                chessboard.addPiece({moves[1][0], moves[1][1]}, 'r', 'w');
+                            else{
+                                chessboard.addPiece({moves[1][0], moves[1][1]}, 'r', 'b');
+                            }
+                        }
+                        else if(newPieceChar == 'N' || newPieceChar == 'n'){
+                            validLetter = true;
+                            if(isWhiteTurn)
+                                chessboard.addPiece({moves[1][0], moves[1][1]}, 'n', 'w');
+                            else{
+                                chessboard.addPiece({moves[1][0], moves[1][1]}, 'n', 'b');
+                            }
+                        }
+                        else{
+                            cout << "Invalid input" << endl;
+                            cout << "Input letter of the piece you would like to promote your pawn to" << endl;
+                            cout << "Q -> Queen\nB -> Bishop\nR -> Rook\nN -> Knight\n";
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if(isValidPromote){
+        isWhiteTurn = !isWhiteTurn;
+        }
+    return isValidPromote;
 }
 
 bool Game_Manager::castle(vector<vector<int>> moves){ 
