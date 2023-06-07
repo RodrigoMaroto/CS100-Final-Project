@@ -140,6 +140,16 @@ bool Game_Manager::castle(vector<vector<int>> moves){ //missing implementation
     return false;
 }
 
+vector<vector<int>> parseInput(string input) {
+    // Parse input string to extract column and row values
+    vector<vector<int>> move(2, vector<int>(2));
+    move[0][1] = input[0] - 'a';  // Convert column from character to integer index
+    move[0][0] = input[1] - '1';  // Convert row from character to integer index
+    move[1][1] = input[3] - 'a';  // Convert column from character to integer index
+    move[1][0] = input[4] - '1';  // Convert row from character to integer index
+    return move;
+}
+
 bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementation
 /*
     moves[0][0] == initial row, moves[0][1] == initial column, moves[1][0] == new row, moves[1][1] == new column
@@ -231,16 +241,6 @@ bool isValidInput(string input) {
     }
     
     return true;
-}
-
-vector<vector<int>> parseInput(string input) {
-    // Parse input string to extract column and row values
-    vector<vector<int>> move(2, vector<int>(2));
-    move[0][1] = input[0] - 'a';  // Convert column from character to integer index
-    move[0][0] = input[1] - '1';  // Convert row from character to integer index
-    move[1][1] = input[3] - 'a';  // Convert column from character to integer index
-    move[1][0] = input[4] - '1';  // Convert row from character to integer index
-    return move;
 }
 
 bool isVectorInVector(vector<int> target, vector<vector<int>> vectorList) {
