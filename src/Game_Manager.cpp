@@ -149,15 +149,7 @@ bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementatio
     check if the place it wants to move to is open and in the correct location for a proper en passant (moves[1] == enpassant location && nullptr)
     if all condidtions met: call move function, switch turns, return true (chessboard.board[moves[0][0]][moves[1][1] == nullptr? / delete pawn there?)
     (MAKE SURE YOU ACCOUNT FOR WHOSE TURN IT IS)
-    (ACCOUNT FOR THE BOUNDARIES)
 */
-
-//CHECK BOUNDARIES
-if ((moves[0][0] < 0 || moves[0][0] > 7) || (moves[0][1] < 0 || moves[0][1] > 7) || 
-    (moves[1][0] < 0 || moves[1][0] > 7) || (moves[1][1] < 0 || moves[1][1] > 7))
-{
-    return false;
-}
 
     Piece* pawn = chessboard.board[moves[0][0]][moves[0][1]];
     if (dynamic_cast<Pawn*>(pawn) != nullptr)
@@ -179,22 +171,46 @@ if ((moves[0][0] < 0 || moves[0][0] > 7) || (moves[0][1] < 0 || moves[0][1] > 7)
                     && chessboard.board[moves[1][0]][moves[1][1]] != nullptr) 
                 //white turn (checks if proper en passant) (up 1 row & left/right 1)
                 {
-                    move(moves[1], moves[0]);
-                    //delete/make null chessboard.board[moves[0][0]][moves[1][1]
                     delete chessboard.board[moves[0][0]][moves[1][1]];
-                    isWhiteTurn = !isWhiteTurn;
-                    return true;
+                    if (!tempCheck(move[1], moves[0]))
+                    {
+                        move(moves[1], moves[0]);
+                        //delete/make null chessboard.board[moves[0][0]][moves[1][1]
+                        isWhiteTurn = !isWhiteTurn;
+                        return true;
+                    }
+
+                    else
+                    {
+                        vector<int> enemyPos;
+                        enemyPos.push_back(moves[0][0]);
+                        enemyPos.push_back(moves[1][1]);
+                        chessboard.addPiece(enemyPos, 'p', 'b');
+                        return false;
+                    }
                 }
 
                 else if (!isWhiteTurn && moves[0][0] - 1 == moves[1][0] && (moves[0][1] + 1 == moves[1][1] || moves[0][1] - 1 == moves[1][1])
                          && chessboard.board[moves[1][0]][moves[1][1]] != nullptr) 
                 //black turn (checks if proper en passant) (down 1 row & left/right 1)
                 {
-                    move(moves[1], moves[0]);
-                    //delete/make null chessboard.board[moves[0][0]][moves[1][1]
                     delete chessboard.board[moves[0][0]][moves[1][1]];
-                    isWhiteTurn = !isWhiteTurn;
-                    return true;
+                    if (!tempCheck(move[1], moves[0]))
+                    {
+                        move(moves[1], moves[0]);
+                        //delete/make null chessboard.board[moves[0][0]][moves[1][1]
+                        isWhiteTurn = !isWhiteTurn;
+                        return true;
+                    }
+
+                    else
+                    {
+                        vector<int> enemyPos;
+                        enemyPos.push_back(moves[0][0]);
+                        enemyPos.push_back(moves[1][1]);
+                        chessboard.addPiece(enemyPos, 'p', 'w');
+                        return false;
+                    }
                 }
             }
         }
