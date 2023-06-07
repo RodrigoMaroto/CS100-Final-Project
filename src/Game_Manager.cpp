@@ -322,7 +322,7 @@ bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementatio
             //checks if previous move (playedMoves.at(playedMoves.size() - 1)) moved pawn 2 spaces and the rows/columns match
             {
                 if (isWhiteTurn && moves[0][0] + 1 == moves[1][0] && (moves[0][1] + 1 == moves[1][1] || moves[0][1] - 1 == moves[1][1]) 
-                    && chessboard.board[moves[1][0]][moves[1][1]] != nullptr) 
+                    && chessboard.board[moves[1][0]][moves[1][1]] == nullptr) 
                 //white turn (checks if proper en passant) (up 1 row & left/right 1)
                 {
                     chessboard.board[moves[0][0]][moves[1][1]] = nullptr;
@@ -343,7 +343,7 @@ bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementatio
                 }
 
                 else if (!isWhiteTurn && moves[0][0] - 1 == moves[1][0] && (moves[0][1] + 1 == moves[1][1] || moves[0][1] - 1 == moves[1][1])
-                         && chessboard.board[moves[1][0]][moves[1][1]] != nullptr) 
+                         && chessboard.board[moves[1][0]][moves[1][1]] == nullptr) 
                 //black turn (checks if proper en passant) (down 1 row & left/right 1)
                 {
                     chessboard.board[moves[0][0]][moves[1][1]] = nullptr;

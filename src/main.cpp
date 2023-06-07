@@ -1,31 +1,28 @@
 #include "../header/Game_Manager.h"
+#include <iostream>
+#include <string>
 
 using namespace std;
 
-bool startMenu();
+bool startMenu()
 {
     cout << "Welcome to Chess!" << endl << endl;
     cout << "Would you like to start a game? (type 'y' for yes or 'n' for no)" << endl;
-    char input;
-    cin >> input;
-    cout << endl;
+    string input;
+    getline(cin, input);
 
-    while (input != 'y' || input != 'n')
+    while (input != "y" && input != "n")
     {
         cout << "invalid input: (type 'y' for yes or 'n' for no)" << endl;
-        cin >> input;
-        cout << endl;
+        getline(cin, input);
     }
 
-    if (input == 'y')
+    if (input == "y")
     {
         return true;
     }
 
-    else if (input == 'n')
-    {
-        return false;
-    }
+    return false;
 }
 
 int main(){
