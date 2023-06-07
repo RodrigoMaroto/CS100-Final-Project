@@ -285,6 +285,65 @@ bool Game_Manager::castle(vector<vector<int>> moves){
 }
 
 bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementation
+/*
+    moves[0][0] == initial row, moves[0][1] == initial column, moves[1][0] == new row, moves[1][1] == new column
+    check if piece at chessboard.board[moves[0][0]][moves[0][1]] == pawn
+    check if the piece next to it is a pawn as well (chessboard.board[moves[0][0]][moves[1][1] == pawn)
+    check if the previous move before involved the pawn moving 2 spaces (playedMoves.at(playedMoves.size() - 1))
+    check if the place it wants to move to is open and in the correct location for a proper en passant (moves[1] == enpassant location && nullptr)
+    if all condidtions met: call move function, switch turns, return true (chessboard.board[moves[0][0]][moves[1][1] == nullptr? / delete pawn there?)
+    (MAKE SURE YOU ACCOUNT FOR WHOSE TURN IT IS)
+    (ACCOUNT FOR THE BOUNDARIES)
+*/
+
+//CHECK BOUNDARIES
+if ((moves[0][0] < 0 || moves[0][0] > 7) || (moves[0][1] < 0 || moves[0][1] > 7) || 
+    (moves[1][0] < 0 || moves[1][0] > 7) || (moves[1][1] < 0 || moves[1][1] > 7))
+{
+    return false;
+}
+
+    Piece* pawn = chessboard.board[moves[0][0]][moves[0][1]];
+    if (dynamic_cast<Pawn*>(pawn) != nullptr)
+    //if chessboard.board[moves[0][0]][moves[0][1] == pawn
+    {
+        Piece* enemyPawn = chessboard.board[moves[0][0]][moves[1][1]];
+        if (dynamic_cast<Pawn*>(enemyPawn) != nullptr && enemyPawn->color != pawn->color 
+            && (moves[0][1] + 1 == moves[1][1] || moves[0][1] - 1 == moves[1][1]))
+        //piece next to currLoc != nullptr && == pawn && != this->color (chessboard.board[moves[0][0]][moves[1][1] == pawn)
+        {
+            string prevInput = playedMoves.at(playedMoves.size() - 1);
+            vector<vector<int>> prevMove = parseInput(prevInput);
+
+            if ((prevMove[0][0] + 2 == prevMove[1][0] || prevMove[0][0] - 2 == prevMove[1][0]) && prevMove[0][1] == prevMove[1][1] 
+                 && prevMove[1][0] == moves[0][0] && moves[1][1] == prevMove[1][1])
+            //checks if previous move (playedMoves.at(playedMoves.size() - 1)) moved pawn 2 spaces and the rows/columns match
+            {
+                if (isWhiteTurn && moves[0][0] + 1 == moves[1][0] && (moves[0][1] + 1 == moves[1][1] || moves[0][1] - 1 == moves[1][1]) 
+                    && chessboard.board[moves[1][0]][moves[1][1]] != nullptr) 
+                //white turn (checks if proper en passant) (up 1 row & left/right 1)
+                {
+                    move(moves[1], moves[0]);
+                    //delete/make null chessboard.board[moves[0][0]][moves[1][1]
+                    delete chessboard.board[moves[0][0]][moves[1][1]];
+                    isWhiteTurn = !isWhiteTurn;
+                    return true;
+                }
+
+                else if (!isWhiteTurn && moves[0][0] - 1 == moves[1][0] && (moves[0][1] + 1 == moves[1][1] || moves[0][1] - 1 == moves[1][1])
+                         && chessboard.board[moves[1][0]][moves[1][1]] != nullptr) 
+                //black turn (checks if proper en passant) (down 1 row & left/right 1)
+                {
+                    move(moves[1], moves[0]);
+                    //delete/make null chessboard.board[moves[0][0]][moves[1][1]
+                    delete chessboard.board[moves[0][0]][moves[1][1]];
+                    isWhiteTurn = !isWhiteTurn;
+                    return true;
+                }
+            }
+        }
+    }
+
     return false;
 }
 
@@ -363,7 +422,10 @@ void Game_Manager::inputMove(){
                     if (castle(moves))
                         break;
                     if (enPassant(moves))
+                    {
+                        playedMoves.push_back(input);
                         break;
+                    }
                     if(isVectorInVector(moves[1], piece->validDestinations(chessboard.board))){
                         if (!tempCheck(moves[1], moves[0])){
                             move(moves[1], moves[0]);
