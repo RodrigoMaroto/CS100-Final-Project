@@ -27,18 +27,112 @@ void Game_Manager::move(vector<int> destination, vector<int> currentLocation){
     piece->hasMoved = true;
 }
 
-//This will be checked at the end of the turn, so it must be checked for the opposite color
-//Or pass it as a parameter
-bool Game_Manager::isCheckMate(){ 
-    return false;
+bool Game_Manager::isCheckMate(){
+    // As this will be executed after a move, isWhiteTurn has already been changed, and therefore we are checking for opponent
+    // First check if king is in check
+    vector<int> position;
+    position.push_back(0);
+    position.push_back(0);
+    if (!tempCheck(position, position))
+        return false;
+    // Loop through all pieces, if one move stops check, return false
+    for (int i = 0; i < 8; i++){
+        for (int j = 0; j < 8; j++){
+            if (chessboard.board[i][j] != nullptr){
+                if(isWhiteTurn){
+                    if(chessboard.board[i][j]->color == 'w'){
+                        vector<vector<int>> destinations = chessboard.board[i][j]->validDestinations(chessboard.board);
+                        for (const auto& dest : destinations) {
+                            if (!tempCheck(dest, chessboard.board[i][j]->position))
+                                return false;
+                        }
+                    }
+                }
+                else{
+                    if(chessboard.board[i][j]->color == 'b'){
+                        vector<vector<int>> destinations = chessboard.board[i][j]->validDestinations(chessboard.board);
+                        for (const auto& dest : destinations) {
+                            if (!tempCheck(dest, chessboard.board[i][j]->position))
+                                return false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    //At the end, change member variables and return
+    whiteWin = !isWhiteTurn;
+    isGameFinished = true;
+    return true;
 }
 
 bool Game_Manager::isStalemate(){
-    return false;
+    // As this will be executed after a move, isWhiteTurn has already been changed, and therefore we are checking for opponent
+    // First check if king is in check
+    vector<int> position;
+    position.push_back(0);
+    position.push_back(0);
+    if (tempCheck(position, position))
+        return false;
+    // Loop through all pieces, if one move is valid and does not provoke a check, return false
+    for (int i = 0; i < 8; i++){
+        for (int j = 0; j < 8; j++){
+            if (chessboard.board[i][j] != nullptr){
+                if(isWhiteTurn){
+                    if(chessboard.board[i][j]->color == 'w'){
+                        vector<vector<int>> destinations = chessboard.board[i][j]->validDestinations(chessboard.board);
+                        for (const auto& dest : destinations) {
+                            if (!tempCheck(dest, chessboard.board[i][j]->position))
+                                return false;
+                        }
+                    }
+                }
+                else{
+                    if(chessboard.board[i][j]->color == 'b'){
+                        vector<vector<int>> destinations = chessboard.board[i][j]->validDestinations(chessboard.board);
+                        for (const auto& dest : destinations) {
+                            if (!tempCheck(dest, chessboard.board[i][j]->position))
+                                return false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //At the end, change member variables and return
+    isDraw = true;
+    isGameFinished = true;
+    return true;
 }
 
 bool Game_Manager::tempCheck(vector<int> destination, vector<int> currentLocation){
-    return false;
+    //Modify board
+    Piece* dest = chessboard.board[destination[0]][destination[1]];
+    Piece* piece = chessboard.board[currentLocation[0]][currentLocation[1]];
+    chessboard.board[currentLocation[0]][currentLocation[1]] = nullptr;
+    chessboard.board[destination[0]][destination[1]] = piece;
+    if (piece != nullptr)
+        piece->position = destination;
+    King* king;
+    Piece* kingPiece;
+    //Call check
+    if (isWhiteTurn)
+        kingPiece = chessboard.findKing('w');
+    else
+        kingPiece = chessboard.findKing('b');
+    
+    king = static_cast<King*>(kingPiece);
+    bool result = king->inCheck(chessboard.board);
+
+    //Restore board
+    chessboard.board[currentLocation[0]][currentLocation[1]] = piece;
+    chessboard.board[destination[0]][destination[1]] = dest;
+    if (piece != nullptr)
+        piece->position = currentLocation;
+
+    return result;
 }
 
 bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementaation
@@ -109,8 +203,83 @@ bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementaation
     return isValidPromote;
 }
 
-bool Game_Manager::castle(vector<vector<int>> moves){ //missing implementation
-    return false;
+bool Game_Manager::castle(vector<vector<int>> moves){ 
+    bool isValidCastle = false;
+    Piece* king = chessboard.board[moves[0][0]][moves[0][1]];
+    vector<int> kingDestination = {moves[1][0], moves[1][1]};
+    if(dynamic_cast<King*>(king) != nullptr){ //if piece is a king
+        if(king->hasMoved == false){//if king has not moved
+            if(kingDestination[0] == moves[0][0] && kingDestination[1] == moves[0][1] + 2){//position of king's destination is position of kingside castle
+                Piece* rook = chessboard.board[moves[0][0]][7];
+                if(dynamic_cast<Rook*>(rook) != nullptr){//if rook is on kingside
+                    if(rook->hasMoved == false){//rook has not moved
+                        if(!tempCheck(rook->position, king->position)){//rook is not under attack
+                            if((king->color == rook->color) && (king->color == 'w') && isWhiteTurn){//rook and king both white, it is white's turn
+                                if((chessboard.board[moves[0][0]][moves[0][1] + 1] == nullptr) 
+                                && (chessboard.board[moves[0][0]][moves[0][1] + 2] == nullptr)){// no pieces between rook and king
+                                    if(!tempCheck(king->position, king->position)){//king is not in check
+                                        if(!tempCheck({0,5}, king->position) && !tempCheck({0,6},king->position)){//if king's path does not result in check
+                                            isValidCastle = true;
+                                            move({0,6}, king->position);
+                                            move({0,5}, rook->position);
+                                        }
+                                    }
+                                }
+                            }
+                            else if((king->color == rook->color) && (king->color == 'b') && !isWhiteTurn){//rook and king both black, it is black's turn
+                                if((chessboard.board[moves[0][0]][moves[0][1] + 1] == nullptr) 
+                                && (chessboard.board[moves[0][0]][moves[0][1] + 2] == nullptr)){// no pieces between rook and king
+                                    if(!tempCheck(king->position, king->position)){//king is not in check
+                                        if(!tempCheck({7,5},king->position) && !tempCheck({7,6},king->position)){//if king's path does not result in check
+                                            isValidCastle = true;
+                                            move({7,6}, king->position);
+                                            move({7,5}, rook->position);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if(kingDestination[0] == moves[0][0] && kingDestination[1] == moves[0][1] - 2){//king's destination is queenside castle
+                Piece* rook = chessboard.board[moves[0][0]][0];
+                if(dynamic_cast<Rook*>(rook) != nullptr){ //if rook is on queen side
+                    if(rook->hasMoved == false){//rook has not moved
+                        if(!tempCheck(rook->position, king->position)){//rook is not under attack
+                            if((king->color == rook->color) && (king->color == 'w') && isWhiteTurn){//rook and king both white, it is white's turn
+                                if((chessboard.board[moves[0][0]][moves[0][1] - 1] == nullptr) 
+                                && (chessboard.board[moves[0][0]][moves[0][1] - 2] == nullptr)
+                                && (chessboard.board[moves[0][0]][moves[0][1] - 3] == nullptr)){// no pieces between rook and king
+                                    if(!tempCheck(king->position, king->position)){//king is not in check
+                                        if(!tempCheck({0,1},king->position) && !tempCheck({0,2},king->position) && !tempCheck({0,3},king->position)){//if king's path does not result in check
+                                            isValidCastle = true;
+                                            move({0,2}, king->position);
+                                            move({0,3}, rook->position);
+                                        }
+                                    }
+                                }
+                            }
+                            else if((king->color == rook->color) && (king->color == 'b') && !isWhiteTurn){//rook and king both black, it is black's turn
+                                if((chessboard.board[moves[0][0]][moves[0][1] - 1] == nullptr) 
+                                && (chessboard.board[moves[0][0]][moves[0][1] - 2] == nullptr)
+                                && (chessboard.board[moves[0][0]][moves[0][1] - 3] == nullptr)){// no pieces between rook and king
+                                    if(!tempCheck(king->position, king->position)){//king is not in check
+                                        if(!tempCheck({7,1},king->position) && !tempCheck({7,2},king->position) && !tempCheck({7,3},king->position)){//if king's path does not result in check
+                                            isValidCastle = true;
+                                            move({7,2}, king->position);
+                                            move({7,3}, rook->position);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return isValidCastle;
 }
 
 bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementation

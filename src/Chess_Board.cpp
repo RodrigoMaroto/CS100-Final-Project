@@ -111,3 +111,13 @@ void Chess_Board::display(){
     }
     cout << "  a b c d e f g h"<<endl;
 }
+
+Piece* Chess_Board::findKing(char color){
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (board[i][j] != nullptr && dynamic_cast<King*>(board[i][j]) != nullptr && board[i][j]->color == color)
+                return board[i][j];
+        }
+    }
+    return nullptr;
+}
