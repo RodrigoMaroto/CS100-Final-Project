@@ -284,6 +284,16 @@ bool Game_Manager::castle(vector<vector<int>> moves){
     return isValidCastle;
 }
 
+vector<vector<int>> parseInput(string input) {
+    // Parse input string to extract column and row values
+    vector<vector<int>> move(2, vector<int>(2));
+    move[0][1] = input[0] - 'a';  // Convert column from character to integer index
+    move[0][0] = input[1] - '1';  // Convert row from character to integer index
+    move[1][1] = input[3] - 'a';  // Convert column from character to integer index
+    move[1][0] = input[4] - '1';  // Convert row from character to integer index
+    return move;
+}
+
 bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementation
 /*
     moves[0][0] == initial row, moves[0][1] == initial column, moves[1][0] == new row, moves[1][1] == new column
@@ -293,15 +303,7 @@ bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementatio
     check if the place it wants to move to is open and in the correct location for a proper en passant (moves[1] == enpassant location && nullptr)
     if all condidtions met: call move function, switch turns, return true (chessboard.board[moves[0][0]][moves[1][1] == nullptr? / delete pawn there?)
     (MAKE SURE YOU ACCOUNT FOR WHOSE TURN IT IS)
-    (ACCOUNT FOR THE BOUNDARIES)
 */
-
-//CHECK BOUNDARIES
-if ((moves[0][0] < 0 || moves[0][0] > 7) || (moves[0][1] < 0 || moves[0][1] > 7) || 
-    (moves[1][0] < 0 || moves[1][0] > 7) || (moves[1][1] < 0 || moves[1][1] > 7))
-{
-    return false;
-}
 
     Piece* pawn = chessboard.board[moves[0][0]][moves[0][1]];
     if (dynamic_cast<Pawn*>(pawn) != nullptr)
@@ -323,22 +325,42 @@ if ((moves[0][0] < 0 || moves[0][0] > 7) || (moves[0][1] < 0 || moves[0][1] > 7)
                     && chessboard.board[moves[1][0]][moves[1][1]] != nullptr) 
                 //white turn (checks if proper en passant) (up 1 row & left/right 1)
                 {
-                    move(moves[1], moves[0]);
-                    //delete/make null chessboard.board[moves[0][0]][moves[1][1]
-                    delete chessboard.board[moves[0][0]][moves[1][1]];
-                    isWhiteTurn = !isWhiteTurn;
-                    return true;
+                    chessboard.board[moves[0][0]][moves[1][1]] = nullptr;
+                    if (!tempCheck(move[1], moves[0]))
+                    {
+                        move(moves[1], moves[0]);
+                        //delete/make null chessboard.board[moves[0][0]][moves[1][1]
+                        delete enemyPawn;
+                        isWhiteTurn = !isWhiteTurn;
+                        return true;
+                    }
+
+                    else
+                    {
+                        chessboard.board[moves[0][0]][moves[1][1]] = enemyPawn;
+                        return false;
+                    }
                 }
 
                 else if (!isWhiteTurn && moves[0][0] - 1 == moves[1][0] && (moves[0][1] + 1 == moves[1][1] || moves[0][1] - 1 == moves[1][1])
                          && chessboard.board[moves[1][0]][moves[1][1]] != nullptr) 
                 //black turn (checks if proper en passant) (down 1 row & left/right 1)
                 {
-                    move(moves[1], moves[0]);
-                    //delete/make null chessboard.board[moves[0][0]][moves[1][1]
-                    delete chessboard.board[moves[0][0]][moves[1][1]];
-                    isWhiteTurn = !isWhiteTurn;
-                    return true;
+                    chessboard.board[moves[0][0]][moves[1][1]] = nullptr;
+                    if (!tempCheck(move[1], moves[0]))
+                    {
+                        move(moves[1], moves[0]);
+                        //delete/make null chessboard.board[moves[0][0]][moves[1][1]
+                        delete enemyPawn;
+                        isWhiteTurn = !isWhiteTurn;
+                        return true;
+                    }
+
+                    else
+                    {
+                        chessboard.board[moves[0][0]][moves[1][1]] = enemyPawn;
+                        return false;
+                    }
                 }
             }
         }
@@ -363,16 +385,6 @@ bool isValidInput(string input) {
     }
     
     return true;
-}
-
-vector<vector<int>> parseInput(string input) {
-    // Parse input string to extract column and row values
-    vector<vector<int>> move(2, vector<int>(2));
-    move[0][1] = input[0] - 'a';  // Convert column from character to integer index
-    move[0][0] = input[1] - '1';  // Convert row from character to integer index
-    move[1][1] = input[3] - 'a';  // Convert column from character to integer index
-    move[1][0] = input[4] - '1';  // Convert row from character to integer index
-    return move;
 }
 
 bool isVectorInVector(vector<int> target, vector<vector<int>> vectorList) {
