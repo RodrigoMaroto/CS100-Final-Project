@@ -78,7 +78,7 @@ vector<vector<int>> Pawn::validDestinations(Piece* board[8][8])
             validDestinations.push_back(validDest3);
         }
 
-        if (currCol - 1 > 0 && (board[currRow + 1][currCol - 1] != nullptr && board[currRow + 1][currCol - 1]->color != this->color))
+        if (currCol - 1 >= 0 && (board[currRow + 1][currCol - 1] != nullptr && board[currRow + 1][currCol - 1]->color != this->color))
         {
             validDest4.at(0) = currRow + 1;
             validDest4.at(1) = currCol - 1;
@@ -117,7 +117,7 @@ vector<vector<int>> Pawn::validDestinations(Piece* board[8][8])
                 validDestinations.push_back(validDest3);
             }
 
-            if (currCol - 1 > 0 && (board[currRow - 1][currCol - 1] != nullptr && board[currRow - 1][currCol - 1]->color != this->color))
+            if (currCol - 1 >= 0 && (board[currRow - 1][currCol - 1] != nullptr && board[currRow - 1][currCol - 1]->color != this->color))
             {
                 validDest4.at(0) = currRow - 1;
                 validDest4.at(1) = currCol - 1;
