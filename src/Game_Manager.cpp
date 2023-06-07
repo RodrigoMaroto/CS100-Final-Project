@@ -171,21 +171,19 @@ bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementatio
                     && chessboard.board[moves[1][0]][moves[1][1]] != nullptr) 
                 //white turn (checks if proper en passant) (up 1 row & left/right 1)
                 {
-                    delete chessboard.board[moves[0][0]][moves[1][1]];
+                    chessboard.board[moves[0][0]][moves[1][1]] = nullptr;
                     if (!tempCheck(move[1], moves[0]))
                     {
                         move(moves[1], moves[0]);
                         //delete/make null chessboard.board[moves[0][0]][moves[1][1]
+                        delete enemyPawn;
                         isWhiteTurn = !isWhiteTurn;
                         return true;
                     }
 
                     else
                     {
-                        vector<int> enemyPos;
-                        enemyPos.push_back(moves[0][0]);
-                        enemyPos.push_back(moves[1][1]);
-                        chessboard.addPiece(enemyPos, 'p', 'b');
+                        chessboard.board[moves[0][0]][moves[1][1]] = enemyPawn;
                         return false;
                     }
                 }
@@ -194,21 +192,19 @@ bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementatio
                          && chessboard.board[moves[1][0]][moves[1][1]] != nullptr) 
                 //black turn (checks if proper en passant) (down 1 row & left/right 1)
                 {
-                    delete chessboard.board[moves[0][0]][moves[1][1]];
+                    chessboard.board[moves[0][0]][moves[1][1]] = nullptr;
                     if (!tempCheck(move[1], moves[0]))
                     {
                         move(moves[1], moves[0]);
                         //delete/make null chessboard.board[moves[0][0]][moves[1][1]
+                        delete enemyPawn;
                         isWhiteTurn = !isWhiteTurn;
                         return true;
                     }
 
                     else
                     {
-                        vector<int> enemyPos;
-                        enemyPos.push_back(moves[0][0]);
-                        enemyPos.push_back(moves[1][1]);
-                        chessboard.addPiece(enemyPos, 'p', 'w');
+                        chessboard.board[moves[0][0]][moves[1][1]] = enemyPawn;
                         return false;
                     }
                 }
