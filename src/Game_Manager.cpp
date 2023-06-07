@@ -148,14 +148,13 @@ bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementaation
                     isValidPromote = true;
                     cout << "Input letter of the piece you would like to promote your pawn to:" << endl;
                     cout << "Q -> Queen\nB -> Bishop\nR -> Rook\nN -> Knight\n";
-                    char newPieceChar;
+                    string newPieceChar;
                     delete pawn;
                     chessboard.board[moves[0][0]][moves[0][1]] = nullptr;
                     bool validLetter = false;
                     while(!validLetter){
-                        cin >> newPieceChar;
-                        cout << endl;
-                        if(newPieceChar == 'Q' || newPieceChar == 'q'){
+                        getline(cin, newPieceChar);
+                        if(newPieceChar == "Q" || newPieceChar == "q"){
                             validLetter = true;
                             if(isWhiteTurn)
                                 chessboard.addPiece({moves[1][0],moves[1][1]}, 'q', 'w');
@@ -163,7 +162,7 @@ bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementaation
                                 chessboard.addPiece({moves[1][0], moves[1][1]}, 'q', 'b');
                             }
                         }
-                        else if(newPieceChar == 'B' || newPieceChar == 'b'){
+                        else if(newPieceChar == "B" || newPieceChar == "b"){
                             validLetter = true;
                             if(isWhiteTurn)
                                 chessboard.addPiece({moves[1][0], moves[1][1]}, 'b', 'w');
@@ -171,7 +170,7 @@ bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementaation
                                 chessboard.addPiece({moves[1][0], moves[1][1]}, 'b', 'b');
                             }
                         }
-                        else if(newPieceChar == 'R' || newPieceChar == 'r'){
+                        else if(newPieceChar == "R" || newPieceChar == "r"){
                             validLetter = true;
                             if(isWhiteTurn)
                                 chessboard.addPiece({moves[1][0], moves[1][1]}, 'r', 'w');
@@ -179,7 +178,7 @@ bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementaation
                                 chessboard.addPiece({moves[1][0], moves[1][1]}, 'r', 'b');
                             }
                         }
-                        else if(newPieceChar == 'N' || newPieceChar == 'n'){
+                        else if(newPieceChar == "N" || newPieceChar == "n"){
                             validLetter = true;
                             if(isWhiteTurn)
                                 chessboard.addPiece({moves[1][0], moves[1][1]}, 'n', 'w');
