@@ -204,27 +204,53 @@ TEST(GetDisplayChar, BlackRook)
 }                                       
 TEST(Castle, KingSideWhite)
 {
-    Chess_Board myBoard = Chess_Board();
     Game_Manager game = Game_Manager();
-    myBoard.addPiece({0,4}, 'k', 'w');
-    myBoard.addPiece({0,7}, 'r', 'w');
-    Piece* king = myBoard.board[0][4];
-    Piece* rook = myBoard.board[0][7];
+    game.chessboard.addPiece({0,4}, 'k', 'w');
+    game.chessboard.addPiece({0,7}, 'r', 'w');
+    Piece* king = game.chessboard.board[0][4];
+    Piece* rook = game.chessboard.board[0][7];
     vector<vector<int>> move = {{0,4},{0,6}};
-    EXPECT_TRUE(game.castle(move));
+    ASSERT_TRUE(game.castle(move));
     EXPECT_THAT(king->position, testing::UnorderedElementsAreArray<vector<int>>({0,6}));
     EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({0,5}));
 }
-TEST(PromotePawn, PromoteWhite)
+TEST(Castle, KingSideBlack)
 {
-    Chess_Board myBoard = Chess_Board();
     Game_Manager game = Game_Manager();
-    myBoard.addPiece({6,3}, 'p', 'w');
-    Piece* pawn = myBoard.board[6][3];
-    vector<vector<int>> move = {{6,3},{7,3}};
-    EXPECT_TRUE(game.promote(move));
-    EXPECT_THAT(pawn->position, testing::UnorderedElementsAreArray<vector<int>>({7,3}));
+    game.chessboard.addPiece({7,4}, 'k', 'b');
+    game.chessboard.addPiece({7,7}, 'r', 'b');
+    Piece* king = game.chessboard.board[7][4];
+    Piece* rook = game.chessboard.board[7][7];
+    vector<vector<int>> move = {{7,4},{7,6}};
+    ASSERT_TRUE(game.castle(move));
+    EXPECT_THAT(king->position, testing::UnorderedElementsAreArray<vector<int>>({7,6}));
+    EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({7,5}));
 }
+TEST(Castle, QueenSideWhite)
+{
+    Game_Manager game = Game_Manager();
+    game.chessboard.addPiece({0,4}, 'k', 'w');
+    game.chessboard.addPiece({0,0}, 'r', 'w');
+    Piece* king = game.chessboard.board[0][4];
+    Piece* rook = game.chessboard.board[0][0];
+    vector<vector<int>> move = {{0,4},{0,2}};
+    ASSERT_TRUE(game.castle(move));
+    EXPECT_THAT(king->position, testing::UnorderedElementsAreArray<vector<int>>({0,2}));
+    EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({0,3}));
+}
+TEST(Castle, QueenSideBlack)
+{
+    Game_Manager game = Game_Manager();
+    game.chessboard.addPiece({7,4}, 'k', 'w');
+    game.chessboard.addPiece({7,0}, 'r', 'w');
+    Piece* king = game.chessboard.board[7][4];
+    Piece* rook = game.chessboard.board[7][0];
+    vector<vector<int>> move = {{7,4},{7,2}};
+    ASSERT_TRUE(game.castle(move));
+    EXPECT_THAT(king->position, testing::UnorderedElementsAreArray<vector<int>>({7,2}));
+    EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({7,3}));
+}
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
