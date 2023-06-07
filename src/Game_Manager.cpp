@@ -164,7 +164,8 @@ if ((moves[0][0] < 0 || moves[0][0] > 7) || (moves[0][1] < 0 || moves[0][1] > 7)
     //if chessboard.board[moves[0][0]][moves[0][1] == pawn
     {
         Piece* enemyPawn = chessboard.board[moves[0][0]][moves[1][1]];
-        if (dynamic_cast<Pawn*>(enemyPawn) != nullptr && enemyPawn->color != pawn->color) 
+        if (dynamic_cast<Pawn*>(enemyPawn) != nullptr && enemyPawn->color != pawn->color 
+            && (moves[0][1] + 1 == moves[1][1] || moves[0][1] - 1 == moves[1][1]))
         //piece next to currLoc != nullptr && == pawn && != this->color (chessboard.board[moves[0][0]][moves[1][1] == pawn)
         {
             string prevInput = playedMoves.at(playedMoves.size() - 1);
