@@ -279,6 +279,9 @@ bool Game_Manager::castle(vector<vector<int>> moves){
             }
         }
     }
+    if(isValidCastle){
+        isWhiteTurn = !isWhiteTurn;
+    }
     return isValidCastle;
 }
 
