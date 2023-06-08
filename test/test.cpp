@@ -202,7 +202,7 @@ TEST(GetDisplayChar, BlackRook)
     Rook myRook = Rook('b', {0,0});
     EXPECT_EQ(myRook.getDisplayChar(), "♖");
 }                                       
-TEST(Castle, KingSideWhite)//paasses but doesn't delete old pieces
+TEST(Castle, KingSideWhite)//works
 {
     Game_Manager game = Game_Manager();
     game.chessboard.addPiece({0,4}, 'k', 'w');
@@ -213,10 +213,13 @@ TEST(Castle, KingSideWhite)//paasses but doesn't delete old pieces
     ASSERT_TRUE(game.castle(move));
     EXPECT_THAT(king->position, testing::UnorderedElementsAreArray<vector<int>>({0,6}));
     EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({0,5}));
+    EXPECT_TRUE(game.chessboard.board[0][4] == nullptr);
+    EXPECT_TRUE(game.chessboard.board[0][7] == nullptr);
 }
-/*TEST(Castle, KingSideBlack) //causes seg fault
+TEST(Castle, KingSideBlack) //works
 {
     Game_Manager game = Game_Manager();
+    game.isWhiteTurn = false;
     game.chessboard.addPiece({7,4}, 'k', 'b');
     game.chessboard.addPiece({7,7}, 'r', 'b');
     Piece* king = game.chessboard.board[7][4];
@@ -225,8 +228,10 @@ TEST(Castle, KingSideWhite)//paasses but doesn't delete old pieces
     ASSERT_TRUE(game.castle(move));
     EXPECT_THAT(king->position, testing::UnorderedElementsAreArray<vector<int>>({7,6}));
     EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({7,5}));
-}*/
-TEST(Castle, QueenSideWhite)//passes but doesn't delete old pieces
+    EXPECT_TRUE(game.chessboard.board[7][4] == nullptr);
+    EXPECT_TRUE(game.chessboard.board[7][7] == nullptr);
+}
+TEST(Castle, QueenSideWhite)//works
 {
     Game_Manager game = Game_Manager();
     game.chessboard.addPiece({0,4}, 'k', 'w');
@@ -237,10 +242,13 @@ TEST(Castle, QueenSideWhite)//passes but doesn't delete old pieces
     ASSERT_TRUE(game.castle(move));
     EXPECT_THAT(king->position, testing::UnorderedElementsAreArray<vector<int>>({0,2}));
     EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({0,3}));
+    EXPECT_TRUE(game.chessboard.board[0][4] == nullptr);
+    EXPECT_TRUE(game.chessboard.board[0][0] == nullptr);
 }
-/*TEST(Castle, QueenSideBlack) //causes seg fault
+TEST(Castle, QueenSideBlack) //works
 {
     Game_Manager game = Game_Manager();
+    game.isWhiteTurn = false;
     game.chessboard.addPiece({7,4}, 'k', 'b');
     game.chessboard.addPiece({7,0}, 'r', 'b');
     Piece* king = game.chessboard.board[7][4];
@@ -249,7 +257,9 @@ TEST(Castle, QueenSideWhite)//passes but doesn't delete old pieces
     ASSERT_TRUE(game.castle(move));
     EXPECT_THAT(king->position, testing::UnorderedElementsAreArray<vector<int>>({7,2}));
     EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({7,3}));
-}*/
+    EXPECT_TRUE(game.chessboard.board[7][4] == nullptr);
+    EXPECT_TRUE(game.chessboard.board[7][0] == nullptr);
+}
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
