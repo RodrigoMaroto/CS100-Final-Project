@@ -295,6 +295,39 @@ TEST(Castle, QueenSideBlackKingMoved)
     ASSERT_FALSE(game.castle(move));
 }
 
+TEST(Castle, KingSideWhiteNoRook)
+{
+    Game_Manager game = Game_Manager();
+    game.chessboard.addPiece({0,4}, 'k', 'w');
+    Piece* king = game.chessboard.board[0][4];
+    vector<vector<int>> move = {{0,4},{0,6}};
+    ASSERT_FALSE(game.castle(move));
+}
+TEST(Castle, KingSideBlackNoRook)
+{
+    Game_Manager game = Game_Manager();
+    game.chessboard.addPiece({7,4}, 'k', 'b');
+    Piece* king = game.chessboard.board[7][4];
+    vector<vector<int>> move = {{7,4},{7,6}};
+    ASSERT_FALSE(game.castle(move));
+}
+TEST(Castle, QueenSideWhiteNoRook)
+{
+    Game_Manager game = Game_Manager();
+    game.chessboard.addPiece({0,4}, 'k', 'w');
+    Piece* king = game.chessboard.board[0][4];
+    vector<vector<int>> move = {{0,4},{0,2}};
+    ASSERT_FALSE(game.castle(move));
+}
+TEST(Castle, QueenSideBlackNoRook)
+{
+    Game_Manager game = Game_Manager();
+    game.chessboard.addPiece({7,4}, 'k', 'w');
+    Piece* king = game.chessboard.board[7][4];
+    vector<vector<int>> move = {{7,4},{7,2}};
+    ASSERT_FALSE(game.castle(move));
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
