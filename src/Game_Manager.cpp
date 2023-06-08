@@ -198,7 +198,7 @@ bool Game_Manager::promote(vector<vector<int>> moves){ //missing implementaation
     }
     if(isValidPromote){
         isWhiteTurn = !isWhiteTurn;
-        }
+    }
     return isValidPromote;
 }
 
