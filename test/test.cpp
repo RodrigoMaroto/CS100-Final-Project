@@ -202,7 +202,7 @@ TEST(GetDisplayChar, BlackRook)
     Rook myRook = Rook('b', {0,0});
     EXPECT_EQ(myRook.getDisplayChar(), "♖");
 }                                       
-TEST(Castle, KingSideWhite)//works
+TEST(Castle, KingSideWhite)//paasses but doesn't delete old pieces
 {
     Game_Manager game = Game_Manager();
     game.chessboard.addPiece({0,4}, 'k', 'w');
@@ -226,7 +226,7 @@ TEST(Castle, KingSideWhite)//works
     EXPECT_THAT(king->position, testing::UnorderedElementsAreArray<vector<int>>({7,6}));
     EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({7,5}));
 }*/
-TEST(Castle, QueenSideWhite)//works
+TEST(Castle, QueenSideWhite)//passes but doesn't delete old pieces
 {
     Game_Manager game = Game_Manager();
     game.chessboard.addPiece({0,4}, 'k', 'w');
