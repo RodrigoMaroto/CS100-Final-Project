@@ -251,7 +251,6 @@ TEST(Castle, QueenSideBlack)
     EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({7,3}));
 }
 
-
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
