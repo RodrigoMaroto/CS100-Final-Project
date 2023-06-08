@@ -260,6 +260,100 @@ TEST(Castle, QueenSideBlack) //works
     EXPECT_TRUE(game.chessboard.board[7][4] == nullptr);
     EXPECT_TRUE(game.chessboard.board[7][0] == nullptr);
 }
+TEST(Castle, KingSideWhiteKingMoved)//works
+{
+    Game_Manager game = Game_Manager();
+    game.chessboard.addPiece({0,4}, 'k', 'w');
+    game.chessboard.addPiece({0,7}, 'r', 'w');
+    Piece* king = game.chessboard.board[0][4];
+    king->hasMoved = true;
+    Piece* rook = game.chessboard.board[0][7];
+    vector<vector<int>> move = {{0,4},{0,6}};
+    ASSERT_FALSE(game.castle(move));
+    EXPECT_TRUE(game.chessboard.board[0][4] == king);
+    EXPECT_TRUE(game.chessboard.board[0][7] == rook);
+}
+TEST(Castle, KingSideBlackKingMoved) //works
+{
+    Game_Manager game = Game_Manager();
+    game.isWhiteTurn = false;
+    game.chessboard.addPiece({7,4}, 'k', 'b');
+    game.chessboard.addPiece({7,7}, 'r', 'b');
+    Piece* king = game.chessboard.board[7][4];
+    king->hasMoved = true;
+    Piece* rook = game.chessboard.board[7][7];
+    vector<vector<int>> move = {{7,4},{7,6}};
+    ASSERT_FALSE(game.castle(move));
+    EXPECT_TRUE(game.chessboard.board[7][4] == king);
+    EXPECT_TRUE(game.chessboard.board[7][7] == rook);
+}
+TEST(Castle, QueenSideWhiteKingMoved)//works
+{
+    Game_Manager game = Game_Manager();
+    game.chessboard.addPiece({0,4}, 'k', 'w');
+    game.chessboard.addPiece({0,0}, 'r', 'w');
+    Piece* king = game.chessboard.board[0][4];
+    king->hasMoved = true;
+    Piece* rook = game.chessboard.board[0][0];
+    vector<vector<int>> move = {{0,4},{0,2}};
+    ASSERT_FALSE(game.castle(move));
+    EXPECT_TRUE(game.chessboard.board[0][4] == king);
+    EXPECT_TRUE(game.chessboard.board[0][0] == rook);
+}
+TEST(Castle, QueenSideBlackKingMoved) //works
+{
+    Game_Manager game = Game_Manager();
+    game.isWhiteTurn = false;
+    game.chessboard.addPiece({7,4}, 'k', 'b');
+    game.chessboard.addPiece({7,0}, 'r', 'b');
+    Piece* king = game.chessboard.board[7][4];
+    king->hasMoved = true;
+    Piece* rook = game.chessboard.board[7][0];
+    vector<vector<int>> move = {{7,4},{7,2}};
+    ASSERT_FALSE(game.castle(move));
+    EXPECT_TRUE(game.chessboard.board[7][4] == king);
+    EXPECT_TRUE(game.chessboard.board[7][0] == rook);
+}
+TEST(Castle, KingSideWhiteNoRook)//works
+{
+    Game_Manager game = Game_Manager();
+    game.chessboard.addPiece({0,4}, 'k', 'w');
+    Piece* king = game.chessboard.board[0][4];
+    vector<vector<int>> move = {{0,4},{0,6}};
+    ASSERT_FALSE(game.castle(move));
+    EXPECT_TRUE(game.chessboard.board[0][4] == king);
+}
+TEST(Castle, KingSideBlackNoRook) //works
+{
+    Game_Manager game = Game_Manager();
+    game.isWhiteTurn = false;
+    game.chessboard.addPiece({7,4}, 'k', 'b');
+    Piece* king = game.chessboard.board[7][4];
+    vector<vector<int>> move = {{7,4},{7,6}};
+    ASSERT_FALSE(game.castle(move));
+    EXPECT_TRUE(game.chessboard.board[7][4] == king);
+}
+TEST(Castle, QueenSideWhiteNoRook)//works
+{
+    Game_Manager game = Game_Manager();
+    game.chessboard.addPiece({0,4}, 'k', 'w');
+    Piece* king = game.chessboard.board[0][4];
+    vector<vector<int>> move = {{0,4},{0,2}};
+    ASSERT_FALSE(game.castle(move));
+    EXPECT_TRUE(game.chessboard.board[0][4] == king);
+}
+TEST(Castle, QueenSideBlackNoRook) //works
+{
+    Game_Manager game = Game_Manager();
+    game.isWhiteTurn = false;
+    game.chessboard.addPiece({7,4}, 'k', 'b');
+    Piece* king = game.chessboard.board[7][4];
+    vector<vector<int>> move = {{7,4},{7,2}};
+    ASSERT_FALSE(game.castle(move));
+    EXPECT_TRUE(game.chessboard.board[7][4] == king);
+}
+
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
