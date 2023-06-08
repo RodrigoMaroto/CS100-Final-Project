@@ -326,7 +326,7 @@ bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementatio
                 //white turn (checks if proper en passant) (up 1 row & left/right 1)
                 {
                     chessboard.board[moves[0][0]][moves[1][1]] = nullptr;
-                    if (!tempCheck(move[1], moves[0]))
+                    if (!tempCheck(moves[1], moves[0]))
                     {
                         move(moves[1], moves[0]);
                         //delete/make null chessboard.board[moves[0][0]][moves[1][1]
@@ -347,7 +347,7 @@ bool Game_Manager::enPassant(vector<vector<int>> moves){ //missing implementatio
                 //black turn (checks if proper en passant) (down 1 row & left/right 1)
                 {
                     chessboard.board[moves[0][0]][moves[1][1]] = nullptr;
-                    if (!tempCheck(move[1], moves[0]))
+                    if (!tempCheck(moves[1], moves[0]))
                     {
                         move(moves[1], moves[0]);
                         //delete/make null chessboard.board[moves[0][0]][moves[1][1]
@@ -460,7 +460,7 @@ void Game_Manager::pauseMenu()
     getline(cin, input);
     cout << endl;
 
-    while (input != "surrender" || input != "back")
+    while (input != "surrender" && input != "back")
     {
         cout << "invalid input: enter 'surrender' or 'back'" << endl;
         getline(cin, input);

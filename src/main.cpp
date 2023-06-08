@@ -39,7 +39,7 @@ int main(){
         }
 
     //Post-game information
-
+        game.chessboard.display();
         if (!game.isDraw)
         {
             if (game.whiteWin)
