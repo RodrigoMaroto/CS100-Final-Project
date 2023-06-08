@@ -201,7 +201,8 @@ TEST(GetDisplayChar, BlackRook)
 {
     Rook myRook = Rook('b', {0,0});
     EXPECT_EQ(myRook.getDisplayChar(), "♖");
-}                                       
+}    
+
 TEST(Castle, KingSideWhite)//works
 {
     Game_Manager game = Game_Manager();
@@ -215,6 +216,7 @@ TEST(Castle, KingSideWhite)//works
     EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({0,5}));
     EXPECT_TRUE(game.chessboard.board[0][4] == nullptr);
     EXPECT_TRUE(game.chessboard.board[0][7] == nullptr);
+    EXPECT_FALSE(game.isWhiteTurn);
 }
 TEST(Castle, KingSideBlack) //works
 {
@@ -230,6 +232,7 @@ TEST(Castle, KingSideBlack) //works
     EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({7,5}));
     EXPECT_TRUE(game.chessboard.board[7][4] == nullptr);
     EXPECT_TRUE(game.chessboard.board[7][7] == nullptr);
+    EXPECT_TRUE(game.isWhiteTurn);
 }
 TEST(Castle, QueenSideWhite)//works
 {
@@ -244,6 +247,7 @@ TEST(Castle, QueenSideWhite)//works
     EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({0,3}));
     EXPECT_TRUE(game.chessboard.board[0][4] == nullptr);
     EXPECT_TRUE(game.chessboard.board[0][0] == nullptr);
+    EXPECT_FALSE(game.isWhiteTurn);
 }
 TEST(Castle, QueenSideBlack) //works
 {
@@ -259,7 +263,9 @@ TEST(Castle, QueenSideBlack) //works
     EXPECT_THAT(rook->position, testing::UnorderedElementsAreArray<vector<int>>({7,3}));
     EXPECT_TRUE(game.chessboard.board[7][4] == nullptr);
     EXPECT_TRUE(game.chessboard.board[7][0] == nullptr);
+    EXPECT_TRUE(game.isWhiteTurn);
 }
+
 TEST(Castle, KingSideWhiteKingMoved)//works
 {
     Game_Manager game = Game_Manager();
@@ -272,6 +278,7 @@ TEST(Castle, KingSideWhiteKingMoved)//works
     ASSERT_FALSE(game.castle(move));
     EXPECT_TRUE(game.chessboard.board[0][4] == king);
     EXPECT_TRUE(game.chessboard.board[0][7] == rook);
+    EXPECT_TRUE(game.isWhiteTurn);
 }
 TEST(Castle, KingSideBlackKingMoved) //works
 {
@@ -286,6 +293,7 @@ TEST(Castle, KingSideBlackKingMoved) //works
     ASSERT_FALSE(game.castle(move));
     EXPECT_TRUE(game.chessboard.board[7][4] == king);
     EXPECT_TRUE(game.chessboard.board[7][7] == rook);
+    EXPECT_FALSE(game.isWhiteTurn);
 }
 TEST(Castle, QueenSideWhiteKingMoved)//works
 {
@@ -299,6 +307,7 @@ TEST(Castle, QueenSideWhiteKingMoved)//works
     ASSERT_FALSE(game.castle(move));
     EXPECT_TRUE(game.chessboard.board[0][4] == king);
     EXPECT_TRUE(game.chessboard.board[0][0] == rook);
+    EXPECT_TRUE(game.isWhiteTurn);
 }
 TEST(Castle, QueenSideBlackKingMoved) //works
 {
@@ -313,7 +322,9 @@ TEST(Castle, QueenSideBlackKingMoved) //works
     ASSERT_FALSE(game.castle(move));
     EXPECT_TRUE(game.chessboard.board[7][4] == king);
     EXPECT_TRUE(game.chessboard.board[7][0] == rook);
+    EXPECT_FALSE(game.isWhiteTurn);
 }
+
 TEST(Castle, KingSideWhiteNoRook)//works
 {
     Game_Manager game = Game_Manager();
@@ -322,6 +333,7 @@ TEST(Castle, KingSideWhiteNoRook)//works
     vector<vector<int>> move = {{0,4},{0,6}};
     ASSERT_FALSE(game.castle(move));
     EXPECT_TRUE(game.chessboard.board[0][4] == king);
+    EXPECT_TRUE(game.isWhiteTurn);
 }
 TEST(Castle, KingSideBlackNoRook) //works
 {
@@ -332,6 +344,7 @@ TEST(Castle, KingSideBlackNoRook) //works
     vector<vector<int>> move = {{7,4},{7,6}};
     ASSERT_FALSE(game.castle(move));
     EXPECT_TRUE(game.chessboard.board[7][4] == king);
+    EXPECT_FALSE(game.isWhiteTurn);
 }
 TEST(Castle, QueenSideWhiteNoRook)//works
 {
@@ -341,6 +354,7 @@ TEST(Castle, QueenSideWhiteNoRook)//works
     vector<vector<int>> move = {{0,4},{0,2}};
     ASSERT_FALSE(game.castle(move));
     EXPECT_TRUE(game.chessboard.board[0][4] == king);
+    EXPECT_TRUE(game.isWhiteTurn);
 }
 TEST(Castle, QueenSideBlackNoRook) //works
 {
@@ -351,9 +365,91 @@ TEST(Castle, QueenSideBlackNoRook) //works
     vector<vector<int>> move = {{7,4},{7,2}};
     ASSERT_FALSE(game.castle(move));
     EXPECT_TRUE(game.chessboard.board[7][4] == king);
+    EXPECT_FALSE(game.isWhiteTurn);
 }
 
+TEST(Castle, KingSideWhitePieceBetween)//works
+{
+    Game_Manager game = Game_Manager();
+    game.chessboard.addPiece({0,4}, 'k', 'w');
+    game.chessboard.addPiece({0,7}, 'r', 'w');
+    game.chessboard.addPiece({0,5}, 'n', 'w');
+    Piece* king = game.chessboard.board[0][4];
+    Piece* rook = game.chessboard.board[0][7];
+    Piece* knight = game.chessboard.board[0][5];
+    vector<vector<int>> move = {{0,4},{0,6}};
+    ASSERT_FALSE(game.castle(move));
+    EXPECT_TRUE(game.chessboard.board[0][4] == king);
+    EXPECT_TRUE(game.chessboard.board[0][7] == rook);
+    EXPECT_TRUE(game.chessboard.board[0][5] == knight);
+    EXPECT_TRUE(game.isWhiteTurn);
+}
+TEST(Castle, KingSideBlackPieceBetween) //works
+{
+    Game_Manager game = Game_Manager();
+    game.isWhiteTurn = false;
+    game.chessboard.addPiece({7,4}, 'k', 'b');
+    game.chessboard.addPiece({7,7}, 'r', 'b');
+    game.chessboard.addPiece({7,6}, 'n', 'b');
+    Piece* king = game.chessboard.board[7][4];
+    Piece* rook = game.chessboard.board[7][7];
+    Piece* knight = game.chessboard.board[7][6];
+    vector<vector<int>> move = {{7,4},{7,6}};
+    ASSERT_FALSE(game.castle(move));
+    EXPECT_TRUE(game.chessboard.board[7][4] == king);
+    EXPECT_TRUE(game.chessboard.board[7][7] == rook);
+    EXPECT_TRUE(game.chessboard.board[7][6] == knight);
+    EXPECT_FALSE(game.isWhiteTurn);
+}
+TEST(Castle, QueenSideWhitePieceBetween)//works
+{
+    Game_Manager game = Game_Manager();
+    game.chessboard.addPiece({0,4}, 'k', 'w');
+    game.chessboard.addPiece({0,0}, 'r', 'w');
+    game.chessboard.addPiece({0,1}, 'n', 'w');
+    Piece* king = game.chessboard.board[0][4];
+    Piece* rook = game.chessboard.board[0][0];
+    Piece* knight = game.chessboard.board[0][1];
+    vector<vector<int>> move = {{0,4},{0,2}};
+    ASSERT_FALSE(game.castle(move));
+    EXPECT_TRUE(game.chessboard.board[0][4] == king);
+    EXPECT_TRUE(game.chessboard.board[0][0] == rook);
+    EXPECT_TRUE(game.chessboard.board[0][1] == knight);
+    EXPECT_TRUE(game.isWhiteTurn);
+}
+TEST(Castle, QueenSideBlackPieceBetween) //works
+{
+    Game_Manager game = Game_Manager();
+    game.isWhiteTurn = false;
+    game.chessboard.addPiece({7,4}, 'k', 'b');
+    game.chessboard.addPiece({7,0}, 'r', 'b');
+    game.chessboard.addPiece({7,3}, 'n', 'b');
+    Piece* king = game.chessboard.board[7][4];
+    Piece* rook = game.chessboard.board[7][0];
+    Piece* knight = game.chessboard.board[7][3];
+    vector<vector<int>> move = {{7,4},{7,2}};
+    ASSERT_FALSE(game.castle(move));
+    EXPECT_TRUE(game.chessboard.board[7][4] == king);
+    EXPECT_TRUE(game.chessboard.board[7][0] == rook);
+    EXPECT_TRUE(game.chessboard.board[7][3] == knight);
+    EXPECT_FALSE(game.isWhiteTurn);
+}
 
+TEST(Castle, PathInCheck)//works
+{
+    Game_Manager game = Game_Manager();
+    game.chessboard.addPiece({0,4}, 'k', 'w');
+    game.chessboard.addPiece({0,7}, 'r', 'w');
+    game.chessboard.addPiece({2,5}, 'r', 'b');
+    Piece* king = game.chessboard.board[0][4];
+    Piece* rook = game.chessboard.board[0][7];
+    Piece* blackRook = game.chessboard.board[2][5];
+    vector<vector<int>> move = {{0,4},{0,6}};
+    ASSERT_FALSE(game.castle(move));
+    EXPECT_TRUE(game.chessboard.board[0][4] == king);
+    EXPECT_TRUE(game.chessboard.board[0][7] == rook);
+    EXPECT_TRUE(game.chessboard.board[2][5] == blackRook);
+}
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
