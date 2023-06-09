@@ -807,7 +807,7 @@ TEST(GetDisplayChar, WhiteQueen)
 }
 TEST(GetDisplayChar, BlackQueen)
 {
-    Queen queen = queen('b', {0,0});
+    Queen queen = Queen('b', {0,0});
     EXPECT_EQ(queen.getDisplayChar(), "♕");
 }
 int main(int argc, char **argv) {
