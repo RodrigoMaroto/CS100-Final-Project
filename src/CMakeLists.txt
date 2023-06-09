@@ -6,7 +6,6 @@ add_executable(chess
     king.cpp
     knight.cpp
     pawn.cpp
-    piece.cpp 
     queen.cpp
     rook.cpp
     main.cpp
@@ -20,7 +19,6 @@ add_library(simpleLibrary
   king.cpp
   knight.cpp
   pawn.cpp
-  piece.cpp 
   queen.cpp
   rook.cpp 
 )
