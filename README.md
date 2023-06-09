@@ -75,24 +75,29 @@ White/Black Wins!
 
 ## Class Diagram
  ![alt text](images/class-diagram.png)
- The piece class is going to be used as an abstract class, with each type of piece inheriting from the piece class. Each type of piece will inherit a color and position, and override the move() and validDestinations() functions according to the piece to be moved. The pawn, rook, and king will have a ‘hasMoved’ boolean variable which will be checked when attempting to castle or move two spaces as a pawn. The color of each piece will be either black or white. The validDestinations() function for a specific piece stores a vector of integers which represents destinations that that piece could move to in one move. 
+ The piece class is going to be used as an abstract class, with each type of piece inheriting from the piece class. Each type of piece will inherit a color, hasMoved and position, and override the getDisplayChar() and validDestinations() functions according to the piece to be moved. The pawn, rook, and king will have a ‘hasMoved’ boolean variable which will be checked when attempting to castle or move two spaces as a pawn. The color of each piece will be either black or white. The validDestinations() function for a specific piece stores a vector of vectors of integers which represents destinations that that piece could move to in one move. 
 
-The Game_Manager class is used to store the previous moves and the board. It is also used to perform functions for certain cases such as check, stalemate, and checkmate. This class also is used for pawn promotions, and saving or loading previous games. It is associated with the Chess_Board class because it cannot do any of its functions without a chess board, and the chess board is useless without the game manager. 
+The Game_Manager class is used to store the previous moves, the board, the results of the game and whose turn it is. It is also used to perform functions for certain cases such as check, stalemate, and checkmate. This class also is used for pawn promotions and other special cases, and saving or loading previous games. It is associated with the Chess_Board class because it cannot do any of its functions without a chess board, and the chess board is useless without the game manager. 
 
 The responsibility of the Game Manager was too large as it was handling both game management and file management, which violated the single responsibility principle. To fix this, we separated the Game Manager class into Game Manager and File Manager classes. This will help us to write better, more readable/manageable code since the separation reduces the complexity of Game Manager without changing the overall functionality.
 
 The move function was initially being implemented for each piece, but the function was similar for all pieces (adjusting pointers on board to reflect new locations). This is a violation of the open-closed principle because the move function should be closed for modification once it is written. In order to fix this, the game manager class is now responsible for the move function, and it is only implemented once. This change allows for more readable code and reduces the amount of duplicated code.
  
  ## Screenshots
- * Game starting
+ * Game starting  
+
  ![alt text](images/game-start.png)
- * Castling
+ * Castling 
+
  ![alt text](images/castle.png)
- * Promote
+ * Promote  
+
  ![alt text](images/promote.png)
- * Game ending
+ * Game ending  
+
  ![alt text](images/game-end.png)
- * Pause menu
+ * Pause menu  
+ 
  ![alt text](images/pause-menu.png)
 
  ## Installation/Usage
@@ -109,6 +114,14 @@ g++ src/*.cpp -o chess
 ```
  ## Testing
 The project was tested using the GoogleTest framework to write unit tests. Our unit tests cover the methods that do not depend on user input or output.  
+These methods include: 
+* validDestinations
+* getDisplayChar
+* Castle
+* Stalemate
+* Checkmate
+* Check  
+
 Additionally, as it is normal when developing projects that depend highly on the user experience like games, we have carried out exhaustive play testing.  
 Finally, we have also run the executable using Valgrind to identify memory leaks and fix them. 
  
