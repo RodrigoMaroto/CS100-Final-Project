@@ -182,26 +182,7 @@ TEST(ValidDestinations, RookAtEdge)
     vector<vector<int>> matcher = {{1,0},{2,0},{3,0},{4,0},{5,0},{6,0},{0,1},{0,2},{0,3},{0,4},{0,5},{0,6},{0,7}};
     EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
 }
-TEST(GetDisplayChar, WhiteBishop)
-{
-    Bishop myBishop = Bishop('w', {0,0});
-    EXPECT_EQ(myBishop.getDisplayChar(), "♝");
-}  
-TEST(GetDisplayChar, BlackBishop)
-{
-    Bishop myBishop = Bishop('b', {0,0});
-    EXPECT_EQ(myBishop.getDisplayChar(), "♗");
-}
-TEST(GetDisplayChar, WhiteRook)
-{
-    Rook myRook = Rook('w', {0,0});
-    EXPECT_EQ(myRook.getDisplayChar(), "♜");
-}  
-TEST(GetDisplayChar, BlackRook)
-{
-    Rook myRook = Rook('b', {0,0});
-    EXPECT_EQ(myRook.getDisplayChar(), "♖");
-}    
+
 
 TEST(Stalemate, QueenCorner){
     Game_Manager game = Game_Manager();
@@ -732,16 +713,7 @@ TEST(ValidDestinations, blackPawnCaptureAndMoved)
    vector<vector<int>> matcher = {{5,6},{5,7}};
    EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
 }
-TEST(GetDisplayChar, WhitePawn)
-{
-    Pawn myPawn = Pawn('w', {0,0});
-    EXPECT_EQ(myPawn.getDisplayChar(), "♟︎");
-}  
-TEST(GetDisplayChar, BlackPawn)
-{
-    Pawn myPawn = Pawn('b', {0,0});
-    EXPECT_EQ(myPawn.getDisplayChar(), "♙");
-}
+
 TEST(ValidDestinations, Knight)
 {
    Chess_Board myBoard = Chess_Board();
@@ -788,7 +760,56 @@ TEST(GetDisplayChar, BlackKnight)
     Knight myKnight = Knight('b', {0,0});
     EXPECT_EQ(myKnight.getDisplayChar(), "♘");
 }
-
+TEST(GetDisplayChar, WhitePawn)
+{
+    Pawn myPawn = Pawn('w', {0,0});
+    EXPECT_EQ(myPawn.getDisplayChar(), "♟︎");
+}  
+TEST(GetDisplayChar, BlackPawn)
+{
+    Pawn myPawn = Pawn('b', {0,0});
+    EXPECT_EQ(myPawn.getDisplayChar(), "♙");
+}
+TEST(GetDisplayChar, WhiteBishop)
+{
+    Bishop myBishop = Bishop('w', {0,0});
+    EXPECT_EQ(myBishop.getDisplayChar(), "♝");
+}  
+TEST(GetDisplayChar, BlackBishop)
+{
+    Bishop myBishop = Bishop('b', {0,0});
+    EXPECT_EQ(myBishop.getDisplayChar(), "♗");
+}
+TEST(GetDisplayChar, WhiteRook)
+{
+    Rook myRook = Rook('w', {0,0});
+    EXPECT_EQ(myRook.getDisplayChar(), "♜");
+}  
+TEST(GetDisplayChar, BlackRook)
+{
+    Rook myRook = Rook('b', {0,0});
+    EXPECT_EQ(myRook.getDisplayChar(), "♖");
+}    
+TEST(GetDisplayChar, WhiteKing)
+{
+    King king = King('w', {0,0});
+    EXPECT_EQ(king.getDisplayChar(), "♚");
+}
+TEST(GetDisplayChar, BlackKing)
+{
+    King king = King('b', {0,0});
+    EXPECT_EQ(king.getDisplayChar(), "♔");
+}
+TEST(GetDisplayChar, WhiteQueen)
+{
+    Queen queen = Queen('w', {0,0});
+    EXPECT_EQ(queen.getDisplayChar(), "♛");
+}
+TEST(GetDisplayChar, BlackQueen)
+{
+    Queen queen = queen('b', {0,0});
+    EXPECT_EQ(queen.getDisplayChar(), "♕");
+}
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
