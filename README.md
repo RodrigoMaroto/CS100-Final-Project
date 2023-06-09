@@ -93,9 +93,31 @@ The move function was initially being implemented for each piece, but the functi
  > * Make sure your README file and Project board are up-to-date reflecting the current status of your project (e.g. any changes that you have made during the project such as changes to your class diagram). Previous versions should still be visible through your commit history. 
  
  ## Screenshots
- > Screenshots of the input/output after running your application
+ * Game starting
+ ![alt text](images/game-start.png)
+ * Castling
+ ![alt text](images/castle.png)
+ * Promote
+ ![alt text](images/promote.png)
+ * Game ending
+ ![alt text](images/game-end.png)
+ * Pause menu
+ ![alt text](images/pause-menu.png)
+
  ## Installation/Usage
- > Instructions on installing and running your application
+ We have included the necessary files to build the project using CMake. With this tool you can build the project and run the game with the following commands:
+ ```bash
+cmake .
+make
+./bin/chess  
+```
+Another option for building only the Chess game are the following commands:
+ ```bash
+g++ src/*.cpp -o chess
+./chess  
+```
  ## Testing
- > How was your project tested/validated? If you used CI, you should have a "build passing" badge in this README.
+The project was tested using the GoogleTest framework to write unit tests. Our unit tests cover the methods that do not depend on user input or output.  
+Additionally, as it is normal when developing projects that depend highly on the user experience like games, we have carried out exhaustive play testing.  
+Finally, we have also run the executable using Valgrind to identify memory leaks and fix them. 
  
