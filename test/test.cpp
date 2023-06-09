@@ -536,6 +536,136 @@ TEST(Check, notCheck)
    King* myKing = dynamic_cast<King*>(myBoard.board[3][4]);
    EXPECT_FALSE(myKing->inCheck(myBoard.board));
 }
+TEST(ValidDestinations, whitePawn)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(1);
+   pos.push_back(1);
+   myBoard.addPiece(pos, 'p', 'w');
+   Pawn* myPawn = dynamic_cast<Pawn*>(myBoard.board[1][1]);
+   vector<vector<int>> allMoves = myPawn->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{3,1},{2,1}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(ValidDestinations, blackPawn)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(6);
+   pos.push_back(6);
+   myBoard.addPiece(pos, 'p', 'b');
+   Pawn* myPawn = dynamic_cast<Pawn*>(myBoard.board[6][6]);
+   vector<vector<int>> allMoves = myPawn->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{5,6},{4,6}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(ValidDestinations, whitePawnMoved)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(1);
+   pos.push_back(1);
+   myBoard.addPiece(pos, 'p', 'w');
+   Pawn* myPawn = dynamic_cast<Pawn*>(myBoard.board[1][1]);
+   myPawn->hasMoved = true;
+   vector<vector<int>> allMoves = myPawn->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{2,1}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(ValidDestinations, blackPawnMoved)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(6);
+   pos.push_back(6);
+   myBoard.addPiece(pos, 'p', 'b');
+   Pawn* myPawn = dynamic_cast<Pawn*>(myBoard.board[6][6]);
+   myPawn->hasMoved = true;
+   vector<vector<int>> allMoves = myPawn->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{5,6}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(ValidDestinations, whitePawnCapture)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(1);
+   pos.push_back(1);
+   myBoard.addPiece(pos, 'p', 'w');
+   pos.at(0) = 2;
+   pos.at(1) = 2;
+   myBoard.addPiece(pos, 'p', 'b');
+   Pawn* myPawn = dynamic_cast<Pawn*>(myBoard.board[1][1]);
+   vector<vector<int>> allMoves = myPawn->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{3,1},{2,1},{2,2}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(ValidDestinations, blackPawnCapture)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(6);
+   pos.push_back(6);
+   myBoard.addPiece(pos, 'p', 'b');
+   pos.at(0) = 5;
+   pos.at(1) = 7;
+   myBoard.addPiece(pos, 'p', 'w');
+   Pawn* myPawn = dynamic_cast<Pawn*>(myBoard.board[6][6]);
+   vector<vector<int>> allMoves = myPawn->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{5,6},{4,6},{5,7}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(ValidDestinations, whitePawnBounds)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(7);
+   pos.push_back(7);
+   myBoard.addPiece(pos, 'p', 'w');
+   Pawn* myPawn = dynamic_cast<Pawn*>(myBoard.board[7][7]);
+   vector<vector<int>> allMoves = myPawn->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(ValidDestinations, blackPawnBounds)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(1);
+   pos.push_back(0);
+   myBoard.addPiece(pos, 'p', 'b');
+   Pawn* myPawn = dynamic_cast<Pawn*>(myBoard.board[1][0]);
+   vector<vector<int>> allMoves = myPawn->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{0,0}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(ValidDestinations, blackPawnCaptureAndMoved)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(6);
+   pos.push_back(6);
+   myBoard.addPiece(pos, 'p', 'b');
+   pos.at(0) = 5;
+   pos.at(1) = 7;
+   myBoard.addPiece(pos, 'p', 'w');
+   Pawn* myPawn = dynamic_cast<Pawn*>(myBoard.board[6][6]);
+   myPawn->hasMoved = true;
+   vector<vector<int>> allMoves = myPawn->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{5,6},{5,7}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(GetDisplayChar, WhitePawn)
+{
+    Pawn myPawn = Pawn('w', {0,0});
+    EXPECT_EQ(myPawn.getDisplayChar(), "♟︎");
+}  
+TEST(GetDisplayChar, BlackPawn)
+{
+    Pawn myPawn = Pawn('b', {0,0});
+    EXPECT_EQ(myPawn.getDisplayChar(), "♙");
+}
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
