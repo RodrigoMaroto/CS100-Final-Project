@@ -46,9 +46,9 @@ TEST(CheckMate, stairMateTooClose){
     game.chessboard.addPiece(pos, 'k', 'w');
     pos.at(1) = 0;
     game.chessboard.addPiece(pos, 'r', 'b');
-    /*pos.at(1) = 1;
+    pos.at(1) = 1;
     pos.at(0) = 1;
-    game.chessboard.addPiece(pos, 'r', 'b');*/
+    game.chessboard.addPiece(pos, 'r', 'b');
     EXPECT_FALSE(game.isCheckMate());
 }
 
