@@ -451,6 +451,39 @@ TEST(Castle, PathInCheck)//works
     EXPECT_TRUE(game.chessboard.board[2][5] == blackRook);
 }
 
+TEST(ValidDestinations, QueenCenter)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(3);
+   pos.push_back(4);
+   myBoard.addPiece(pos, 'q', 'w');
+   Queen* myQueen = dynamic_cast<Queen*>(myBoard.board[3][4]);
+   vector<vector<int>> allMoves = myQueen->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{4,5},{5,6},{6,7},{2,3},{1,2},{0,1},{4,3},{5,2},{6,1},
+   {7,0},{2,5},{1,6},{0,7},{3,0},{3,1},{3,2},{3,3},{3,5},{3,6},{3,7},{0,4},{1,4},{2,4},{4,4},{5,4},{6,4},{7,4}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(ValidDestinations, QueenPieceInWay)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(3);
+   pos.push_back(4);
+   myBoard.addPiece(pos, 'q', 'w');
+   pos.at(0)=4;
+   pos.at(1)=3;
+   myBoard.addPiece(pos,'p','w');
+   Queen* myQueen = dynamic_cast<Queen*>(myBoard.board[3][4]);
+   vector<vector<int>> allMoves = myQueen->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{4,5},{5,6},{6,7},{2,3},{1,2},{0,1},
+   /*{4,3},{5,2},{6,1},{7,0}, 
+   (these spaces are no longer valid from previous test)*/
+   {2,5},{1,6},{0,7},{3,0},{3,1},{3,2},
+   {3,3},{3,5},{3,6},{3,7},{0,4},{1,4},{2,4},{4,4},{5,4},{6,4},{7,4}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
