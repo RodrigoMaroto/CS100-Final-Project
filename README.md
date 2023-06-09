@@ -20,7 +20,6 @@ Some features that should be implemented in the project are:
 * Ability to detect other game-ending states like stalemate.
 * Ability to promote a pawn when the conditions match
 * Checks to see if the chess piece is in the boundaries of the board.
-* Possibility to revert moves
 
 
 ## User Interface Specification
@@ -76,26 +75,53 @@ White/Black Wins!
 
 ## Class Diagram
  ![alt text](images/class-diagram.png)
- The piece class is going to be used as an abstract class, with each type of piece inheriting from the piece class. Each type of piece will inherit a color and position, and override the move() and validDestinations() functions according to the piece to be moved. The pawn, rook, and king will have a ‘hasMoved’ boolean variable which will be checked when attempting to castle or move two spaces as a pawn. The color of each piece will be either black or white. The validDestinations() function for a specific piece stores a vector of integers which represents destinations that that piece could move to in one move. 
+ The piece class is going to be used as an abstract class, with each type of piece inheriting from the piece class. Each type of piece will inherit a color, hasMoved and position, and override the getDisplayChar() and validDestinations() functions according to the piece to be moved. The pawn, rook, and king will have a ‘hasMoved’ boolean variable which will be checked when attempting to castle or move two spaces as a pawn. The color of each piece will be either black or white. The validDestinations() function for a specific piece stores a vector of vectors of integers which represents destinations that that piece could move to in one move. 
 
-The Game_Manager class is used to store the previous moves and the board. It is also used to perform functions for certain cases such as check, stalemate, and checkmate. This class also is used for pawn promotions, and saving or loading previous games. It is associated with the Chess_Board class because it cannot do any of its functions without a chess board, and the chess board is useless without the game manager. 
+The Game_Manager class is used to store the previous moves, the board, the results of the game and whose turn it is. It is also used to perform functions for certain cases such as check, stalemate, and checkmate. This class also is used for pawn promotions and other special cases, and saving or loading previous games. It is associated with the Chess_Board class because it cannot do any of its functions without a chess board, and the chess board is useless without the game manager. 
 
 The responsibility of the Game Manager was too large as it was handling both game management and file management, which violated the single responsibility principle. To fix this, we separated the Game Manager class into Game Manager and File Manager classes. This will help us to write better, more readable/manageable code since the separation reduces the complexity of Game Manager without changing the overall functionality.
 
 The move function was initially being implemented for each piece, but the function was similar for all pieces (adjusting pointers on board to reflect new locations). This is a violation of the open-closed principle because the move function should be closed for modification once it is written. In order to fix this, the game manager class is now responsible for the move function, and it is only implemented once. This change allows for more readable code and reduces the amount of duplicated code.
-
- 
- > ## Final deliverable
- > All group members will give a demo to the reader during lab time. ou should schedule your demo on Calendly with the same reader who took your second scrum meeting. The reader will check the demo and the project GitHub repository and ask a few questions to all the team members. 
- > Before the demo, you should do the following:
- > * Complete the sections below (i.e. Screenshots, Installation/Usage, Testing)
- > * Plan one more sprint (that you will not necessarily complete before the end of the quarter). Your In-progress and In-testing columns should be empty (you are not doing more work currently) but your TODO column should have a full sprint plan in it as you have done before. This should include any known bugs (there should be some) or new features you would like to add. These should appear as issues/cards on your Project board.
- > * Make sure your README file and Project board are up-to-date reflecting the current status of your project (e.g. any changes that you have made during the project such as changes to your class diagram). Previous versions should still be visible through your commit history. 
  
  ## Screenshots
- > Screenshots of the input/output after running your application
+ * Game starting  
+
+ ![alt text](images/game-start.png)
+ * Castling 
+
+ ![alt text](images/castle.png)
+ * Promote  
+
+ ![alt text](images/promote.png)
+ * Game ending  
+
+ ![alt text](images/game-end.png)
+ * Pause menu  
+ 
+ ![alt text](images/pause-menu.png)
+
  ## Installation/Usage
- > Instructions on installing and running your application
+ We have included the necessary files to build the project using CMake. With this tool you can build the project and run the game with the following commands:
+ ```bash
+cmake .
+make
+./bin/chess  
+```
+Another option for building only the Chess game are the following commands:
+ ```bash
+g++ src/*.cpp -o chess
+./chess  
+```
  ## Testing
- > How was your project tested/validated? If you used CI, you should have a "build passing" badge in this README.
+The project was tested using the GoogleTest framework to write unit tests. Our unit tests cover the methods that do not depend on user input or output.  
+These methods include: 
+* validDestinations
+* getDisplayChar
+* Castle
+* Stalemate
+* Checkmate
+* Check  
+
+Additionally, as it is normal when developing projects that depend highly on the user experience like games, we have carried out exhaustive play testing.  
+Finally, we have also run the executable using Valgrind to identify memory leaks and fix them. 
  
