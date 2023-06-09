@@ -483,7 +483,59 @@ TEST(ValidDestinations, QueenPieceInWay)
    {3,3},{3,5},{3,6},{3,7},{0,4},{1,4},{2,4},{4,4},{5,4},{6,4},{7,4}};
    EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
 }
-
+TEST(ValidDestinations, KingCenter)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(3);
+   pos.push_back(4);
+   myBoard.addPiece(pos, 'k', 'w');
+   King* myKing = dynamic_cast<King*>(myBoard.board[3][4]);
+   vector<vector<int>> allMoves = myKing->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{2,3},{2,4},{2,5},{3,3},{3,5},{4,3},{4,4},{4,5}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(ValidDestinations, KingPieceInWay)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(3);
+   pos.push_back(4);
+   myBoard.addPiece(pos, 'k', 'w');
+   pos.at(0)=4;
+   pos.at(1)=3;
+   myBoard.addPiece(pos,'p','w');   
+   King* myKing = dynamic_cast<King*>(myBoard.board[3][4]);
+   vector<vector<int>> allMoves = myKing->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{2,3},{2,4},{2,5},{3,3},{3,5},/*{4,3},*/{4,4},{4,5}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(Check, inCheck)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(3);
+   pos.push_back(4);
+   myBoard.addPiece(pos, 'k', 'w');
+   pos.at(0)=4;
+   pos.at(1)=3;
+   myBoard.addPiece(pos,'q','b');   
+   King* myKing = dynamic_cast<King*>(myBoard.board[3][4]);
+   EXPECT_TRUE(myKing->inCheck(myBoard.board));
+}
+TEST(Check, notCheck)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(3);
+   pos.push_back(4);
+   myBoard.addPiece(pos, 'k', 'w');
+   pos.at(0)=5;
+   pos.at(1)=5;
+   myBoard.addPiece(pos,'q','b');   //this piece cant check king
+   King* myKing = dynamic_cast<King*>(myBoard.board[3][4]);
+   EXPECT_FALSE(myKing->inCheck(myBoard.board));
+}
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
