@@ -666,6 +666,52 @@ TEST(GetDisplayChar, BlackPawn)
     Pawn myPawn = Pawn('b', {0,0});
     EXPECT_EQ(myPawn.getDisplayChar(), "♙");
 }
+TEST(ValidDestinations, Knight)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(3);
+   pos.push_back(3);
+   myBoard.addPiece(pos, 'n', 'w');
+   Knight* myKnight = dynamic_cast<Knight*>(myBoard.board[3][3]);
+   vector<vector<int>> allMoves = myKnight->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{5,4},{5,2},{1,4},{1,2},{4,5},{4,1},{2,5},{2,1}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(ValidDestinations, KnightCorner)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(0);
+   pos.push_back(0);
+   myBoard.addPiece(pos, 'n', 'b');
+   Knight* myKnight = dynamic_cast<Knight*>(myBoard.board[0][0]);
+   vector<vector<int>> allMoves = myKnight->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{2,1},{1,2}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(ValidDestinations, KnightEdge)
+{
+   Chess_Board myBoard = Chess_Board();
+   vector<int> pos;
+   pos.push_back(4);
+   pos.push_back(0);
+   myBoard.addPiece(pos, 'n', 'b');
+   Knight* myKnight = dynamic_cast<Knight*>(myBoard.board[4][0]);
+   vector<vector<int>> allMoves = myKnight->validDestinations(myBoard.board);
+   vector<vector<int>> matcher = {{6,1},{5,2},{2,1},{3,2}};
+   EXPECT_THAT(allMoves, testing::UnorderedElementsAreArray<vector<vector<int>>>(matcher));
+}
+TEST(GetDisplayChar, WhiteKnight)
+{
+    Knight myKnight = Knight('w', {0,0});
+    EXPECT_EQ(myKnight.getDisplayChar(), "♞");
+}  
+TEST(GetDisplayChar, BlackKnight)
+{
+    Knight myKnight = Knight('b', {0,0});
+    EXPECT_EQ(myKnight.getDisplayChar(), "♘");
+}
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
